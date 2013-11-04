@@ -1,43 +1,5 @@
-﻿Build started 04.11.2013 4:37:31.
-     1>Project "f:\_1\ofproto\ofproto.vcxproj" on node 3 (Build target(s)).
-     1>CustomBuild:
-         Building Custom Rule F:/_1/ofproto/CMakeLists.txt
-         CMake does not need to re-run because F:\_1\ofproto\CMakeFiles\generate.stamp is up-to-date.
-       ClCompile:
-         E:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"E:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/INCLUDE" /I"E:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/ATLMFC/INCLUDE" /I"C:/Program Files (x86)/Windows Kits/8.1/include/shared" /I"C:/Program Files (x86)/Windows Kits/8.1/include/um" /I"C:/Program Files (x86)/Windows Kits/8.1/include/winrt" /IF:/_1/windows /IF:/_1/windows/thirdparty /IF:/_1 /IF:/_1/include /IF:/_1/lib /IF:/_1/ofproto /IF:/_1/ovsdb /IF:/_1/utilities /IF:/_1/tests /Zi /nologo /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"ofproto.dir\Debug\\" /Fd"F:/_1/ofproto/Debug/ofproto.pdb" /Gd /TC /analyze- /errorReport:prompt collectors.c connmgr.c "fail-open.c" "in-band.c" names.c netflow.c "ofproto-dpif-governor.c" "ofproto-dpif.c" "ofproto-dpif-sflow.c" ofproto.c pinsched.c pktbuf.c
-         collectors.c
-         Exporting getopt library
-         connmgr.c
-         fail-open.c
-         in-band.c
-         Exporting getopt library
-         names.c
-         netflow.c
-         Exporting getopt library
-         ofproto-dpif-governor.c
-         ofproto-dpif.c
-         ofproto-dpif-sflow.c
-         Exporting getopt library
-         ofproto.c
-         pinsched.c
-         pktbuf.c
-         Generating Code...
-       Lib:
-         E:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"F:\_1\ofproto\Debug\ofproto.lib" /NOLOGO ofproto.dir\Debug\collectors.obj
-         ofproto.dir\Debug\connmgr.obj
-         "ofproto.dir\Debug\fail-open.obj"
-         "ofproto.dir\Debug\in-band.obj"
-         ofproto.dir\Debug\names.obj
-         ofproto.dir\Debug\netflow.obj
-         "ofproto.dir\Debug\ofproto-dpif-governor.obj"
-         "ofproto.dir\Debug\ofproto-dpif.obj"
-         "ofproto.dir\Debug\ofproto-dpif-sflow.obj"
-         ofproto.dir\Debug\ofproto.obj
-         ofproto.dir\Debug\pinsched.obj
-         ofproto.dir\Debug\pktbuf.obj
-         ofproto.vcxproj -> F:\_1\ofproto\Debug\ofproto.lib
-     1>Done Building Project "f:\_1\ofproto\ofproto.vcxproj" (Build target(s)).
+﻿Build started 04.11.2013 5:52:30.
 
 Build succeeded.
 
-Time Elapsed 00:00:14.85
+Time Elapsed 00:00:00.03

@@ -1,48 +1,5 @@
-﻿Build started 04.11.2013 4:37:46.
-     1>Project "f:\_1\ovsdb\ovsdb.vcxproj" on node 3 (Build target(s)).
-     1>CustomBuild:
-         Building Custom Rule F:/_1/ovsdb/CMakeLists.txt
-         CMake does not need to re-run because F:\_1\ovsdb\CMakeFiles\generate.stamp is up-to-date.
-       ClCompile:
-         E:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"E:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/INCLUDE" /I"E:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/ATLMFC/INCLUDE" /I"C:/Program Files (x86)/Windows Kits/8.1/include/shared" /I"C:/Program Files (x86)/Windows Kits/8.1/include/um" /I"C:/Program Files (x86)/Windows Kits/8.1/include/winrt" /IF:/_1/windows /IF:/_1/windows/thirdparty /IF:/_1 /IF:/_1/include /IF:/_1/lib /IF:/_1/ofproto /IF:/_1/ovsdb /IF:/_1/utilities /IF:/_1/tests /Zi /nologo /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"ovsdb.dir\Debug\\" /Fd"F:/_1/ovsdb/Debug/ovsdb.pdb" /Gd /TC /analyze- /errorReport:prompt column.c condition.c execution.c file.c "jsonrpc-server.c" log.c mutation.c ovsdb.c "ovsdb-server.c" query.c row.c server.c table.c transaction.c trigger.c
-         column.c
-         condition.c
-         execution.c
-         file.c
-         Exporting getopt library
-         jsonrpc-server.c
-         log.c
-         Exporting getopt library
-         mutation.c
-         ovsdb.c
-         ovsdb-server.c
-         Exporting getopt library
-         query.c
-         row.c
-         server.c
-         table.c
-         transaction.c
-         trigger.c
-         Generating Code...
-       Lib:
-         E:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"F:\_1\ovsdb\Debug\ovsdb.lib" /NOLOGO ovsdb.dir\Debug\column.obj
-         ovsdb.dir\Debug\condition.obj
-         ovsdb.dir\Debug\execution.obj
-         ovsdb.dir\Debug\file.obj
-         "ovsdb.dir\Debug\jsonrpc-server.obj"
-         ovsdb.dir\Debug\log.obj
-         ovsdb.dir\Debug\mutation.obj
-         ovsdb.dir\Debug\ovsdb.obj
-         "ovsdb.dir\Debug\ovsdb-server.obj"
-         ovsdb.dir\Debug\query.obj
-         ovsdb.dir\Debug\row.obj
-         ovsdb.dir\Debug\server.obj
-         ovsdb.dir\Debug\table.obj
-         ovsdb.dir\Debug\transaction.obj
-         ovsdb.dir\Debug\trigger.obj
-         ovsdb.vcxproj -> F:\_1\ovsdb\Debug\ovsdb.lib
-     1>Done Building Project "f:\_1\ovsdb\ovsdb.vcxproj" (Build target(s)).
+﻿Build started 04.11.2013 5:52:30.
 
 Build succeeded.
 
-Time Elapsed 00:00:15.30
+Time Elapsed 00:00:00.03

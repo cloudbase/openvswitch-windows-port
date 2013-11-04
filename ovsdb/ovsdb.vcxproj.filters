@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="column.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="condition.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="execution.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="file.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="jsonrpc-server.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="log.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mutation.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ovsdb.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ovsdb-server.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="query.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="row.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="server.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="table.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="transaction.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="trigger.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{929E2CAD-8A8B-4183-8E0B-927A501DD6BF}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

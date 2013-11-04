@@ -31,8 +31,13 @@
 
 static struct reconnect *reconnect;
 static int now;
+#ifdef _WIN32
+#define NUMBER 16
+#else
+#define NUMBER
+#endif
 
-static const struct command commands[];
+static const struct command commands[NUMBER];
 
 static void diff_stats(const struct reconnect_stats *old,
                        const struct reconnect_stats *new,

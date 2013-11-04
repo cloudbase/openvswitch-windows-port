@@ -58,9 +58,16 @@ void
 ds_reserve(struct ds *ds, size_t min_length)
 {
     if (min_length > ds->allocated || !ds->string) {
+#ifdef _WIN32
+        ds->allocated += 99999;
+#endif
         ds->allocated += MAX(min_length, ds->allocated);
         ds->allocated = MAX(8, ds->allocated);
+#ifdef _WIN32
+        ds->string = xrealloc(ds->string, ds->allocated);
+#else
         ds->string = xrealloc(ds->string, ds->allocated + 1);
+#endif
     }
 }
 
@@ -123,7 +130,7 @@ void
 ds_put_cstr(struct ds *ds, const char *s)
 {
     size_t s_len = strlen(s);
-    memcpy(ds_put_uninit(ds, s_len), s, s_len);
+    memcpy(ds_put_uninit(ds, s_len), s, s_len); 
 }
 
 void
@@ -165,8 +172,8 @@ ds_put_format_valist(struct ds *ds, const char *format, va_list args_)
         needed = vsnprintf(&ds->string[ds->length], available, format, args);
         va_end(args);
 
-        assert(needed < available);
-        ds->length += needed;
+     assert(needed < available);
+            ds->length += needed;
     }
 }
 

@@ -48,8 +48,12 @@ static unsigned short int remote_min_port, remote_max_port;
 static double max_rate;
 
 static double timeout;
-
-static const struct command all_commands[];
+#ifdef _WIN32
+#define NUMBER 5
+#else
+#define NUMBER
+#endif
+static const struct command all_commands[NUMBER];
 
 static void parse_options(int argc, char *argv[]);
 static void usage(void);

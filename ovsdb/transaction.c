@@ -295,11 +295,19 @@ check_ref_count(struct ovsdb_txn *txn OVS_UNUSED, struct ovsdb_txn_row *r)
     if (r->new || !r->n_refs) {
         return NULL;
     } else {
+#ifdef _WIN32
         return ovsdb_error("referential integrity violation",
                            "cannot delete %s row "UUID_FMT" because "
-                           "of %zu remaining reference(s)",
+                           "of %lu remaining reference(s)",
                            r->table->schema->name, UUID_ARGS(&r->uuid),
                            r->n_refs);
+#else
+        return ovsdb_error("referential integrity violation",
+            "cannot delete %s row "UUID_FMT" because "
+            "of %zu remaining reference(s)",
+            r->table->schema->name, UUID_ARGS(&r->uuid),
+            r->n_refs);
+#endif
     }
 }
 
@@ -614,11 +622,19 @@ check_max_rows(struct ovsdb_txn *txn)
         unsigned int max_rows = t->table->schema->max_rows;
 
         if (n_rows > max_rows) {
+#ifndef _WIN32
             return ovsdb_error("constraint violation",
                                "transaction causes \"%s\" table to contain "
-                               "%zu rows, greater than the schema-defined "
+                               "%lu rows, greater than the schema-defined "
                                "limit of %u row(s)",
                                t->table->schema->name, n_rows, max_rows);
+#else
+            return ovsdb_error("constraint violation",
+                "transaction causes \"%s\" table to contain "
+                "%zu rows, greater than the schema-defined "
+                "limit of %u row(s)",
+                t->table->schema->name, n_rows, max_rows);
+#endif
         }
     }
 

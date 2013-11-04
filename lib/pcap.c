@@ -129,9 +129,15 @@ pcap_read(FILE *file, struct ofpbuf **bufp)
                                 ((len & 0x0000ff00) <<  8) |
                                 ((len & 0x000000ff) << 24));
         if (swapped_len > 0xffff) {
-            VLOG_WARN("bad packet length %zu or %"PRIu32" "
+#ifdef _WIN32
+            VLOG_WARN("bad packet length %lu or %"PRIu32" "
                       "reading pcap file",
                       len, swapped_len);
+#else
+            VLOG_WARN("bad packet length %zu or %"PRIu32" "
+                "reading pcap file",
+                len, swapped_len);
+#endif
             return EPROTO;
         }
         len = swapped_len;

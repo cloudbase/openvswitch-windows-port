@@ -132,6 +132,7 @@ time_init(void)
 static void
 set_up_signal(int flags)
 {
+#ifndef _WIN32
     struct sigaction sa;
 
     memset(&sa, 0, sizeof sa);
@@ -139,6 +140,7 @@ set_up_signal(int flags)
     sigemptyset(&sa.sa_mask);
     sa.sa_flags = flags;
     xsigaction(SIGALRM, &sa, NULL);
+#endif
 }
 
 /* Remove SA_RESTART from the flags for SIGALRM, so that any system call that
@@ -173,6 +175,7 @@ time_enable_restart(void)
 static void
 set_up_timer(void)
 {
+#ifndef _WIN32
     static timer_t timer_id;    /* "static" to avoid apparent memory leak. */
     struct itimerspec itimer;
 
@@ -191,6 +194,7 @@ set_up_timer(void)
     if (timer_settime(timer_id, 0, &itimer, NULL)) {
         VLOG_FATAL("timer_settime failed (%s)", strerror(errno));
     }
+#endif
 }
 
 /* Set up the interval timer, to ensure that time advances even without calling
@@ -425,10 +429,12 @@ refresh_monotonic_if_ticked(void)
 static void
 block_sigalrm(sigset_t *oldsigs)
 {
+#ifndef _WIN32
     sigset_t sigalrm;
     sigemptyset(&sigalrm);
     sigaddset(&sigalrm, SIGALRM);
     xsigprocmask(SIG_BLOCK, &sigalrm, oldsigs);
+#endif
 }
 
 static void

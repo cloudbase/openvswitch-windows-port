@@ -140,8 +140,13 @@ ovsdb_execute(struct ovsdb *db, const struct ovsdb_session *session,
         const struct json *op;
 
         /* Parse and execute operation. */
+#ifdef _WIN32
         ovsdb_parser_init(&parser, operation,
-                          "ovsdb operation %zu of %zu", i, n_operations);
+                          "ovsdb operation %lu of %lu", i, n_operations);
+#else
+        ovsdb_parser_init(&parser, operation,
+            "ovsdb operation %zu of %zu", i, n_operations);
+#endif
         op = ovsdb_parser_member(&parser, "op", OP_ID);
         result = json_object_create();
         if (op) {

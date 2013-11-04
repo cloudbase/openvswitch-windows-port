@@ -1,0 +1,27 @@
+﻿Build started 04.11.2013 4:37:25.
+     1>Project "f:\_1\lib\sflow.vcxproj" on node 3 (Build target(s)).
+     1>CustomBuild:
+         Building Custom Rule F:/_1/lib/CMakeLists.txt
+         CMake does not need to re-run because F:\_1\lib\CMakeFiles\generate.stamp is up-to-date.
+       ClCompile:
+         E:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"E:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/INCLUDE" /I"E:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/ATLMFC/INCLUDE" /I"C:/Program Files (x86)/Windows Kits/8.1/include/shared" /I"C:/Program Files (x86)/Windows Kits/8.1/include/um" /I"C:/Program Files (x86)/Windows Kits/8.1/include/winrt" /IF:/_1/windows /IF:/_1/windows/thirdparty /IF:/_1 /IF:/_1/include /IF:/_1/lib /IF:/_1/ofproto /IF:/_1/ovsdb /IF:/_1/utilities /IF:/_1/tests /IF:/_1/generated /Zi /nologo /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"sflow.dir\Debug\\" /Fd"F:/_1/lib/Debug/sflow.pdb" /Gd /TC /analyze- /errorReport:prompt sflow_agent.c sflow_poller.c sflow_receiver.c sflow_sampler.c
+         sflow_agent.c
+         Exporting getopt library
+         sflow_poller.c
+         Exporting getopt library
+         sflow_receiver.c
+         Exporting getopt library
+         sflow_sampler.c
+         Exporting getopt library
+         Generating Code...
+       Lib:
+         E:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"F:\_1\lib\Debug\sflow.lib" /NOLOGO sflow.dir\Debug\sflow_agent.obj
+         sflow.dir\Debug\sflow_poller.obj
+         sflow.dir\Debug\sflow_receiver.obj
+         sflow.dir\Debug\sflow_sampler.obj
+         sflow.vcxproj -> F:\_1\lib\Debug\sflow.lib
+     1>Done Building Project "f:\_1\lib\sflow.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:06.00

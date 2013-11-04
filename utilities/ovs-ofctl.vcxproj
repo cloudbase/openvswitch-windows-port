@@ -1,0 +1,334 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|Win32">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|Win32">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGUID>{B1CECCFD-B38E-4148-AE2D-39B6A9AEFA29}</ProjectGUID>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>Win32</Platform>
+    <ProjectName>ovs-ofctl</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+    <PropertyGroup>
+      <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">F:\_1\utilities\Debug\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">ovs-ofctl.dir\Debug\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">ovs-ofctl</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.exe</TargetExt>
+      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateManifest>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">F:\_1\utilities\Release\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">ovs-ofctl.dir\Release\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">ovs-ofctl</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.exe</TargetExt>
+      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</GenerateManifest>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">F:\_1\utilities\MinSizeRel\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">ovs-ofctl.dir\MinSizeRel\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">ovs-ofctl</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">.exe</TargetExt>
+      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkIncremental>
+      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">true</GenerateManifest>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">F:\_1\utilities\RelWithDebInfo\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">ovs-ofctl.dir\RelWithDebInfo\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">ovs-ofctl</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">.exe</TargetExt>
+      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</LinkIncremental>
+      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</GenerateManifest>
+    </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>E:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/INCLUDE;E:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/ATLMFC/INCLUDE;C:/Program Files (x86)/Windows Kits/8.1/include/shared;C:/Program Files (x86)/Windows Kits/8.1/include/um;C:/Program Files (x86)/Windows Kits/8.1/include/winrt;F:/_1/windows;F:/_1/windows/thirdparty;F:/_1;F:/_1/include;F:/_1/lib;F:/_1/ofproto;F:/_1/ovsdb;F:/_1/utilities;F:/_1/tests;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsC</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>Debug</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>F:/_1/utilities/Debug/ovs-ofctl.pdb</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>E:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/INCLUDE;E:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/ATLMFC/INCLUDE;C:/Program Files (x86)/Windows Kits/8.1/include/shared;C:/Program Files (x86)/Windows Kits/8.1/include/um;C:/Program Files (x86)/Windows Kits/8.1/include/winrt;F:/_1/windows;F:/_1/windows/thirdparty;F:/_1;F:/_1/include;F:/_1/lib;F:/_1/ofproto;F:/_1/ovsdb;F:/_1/utilities;F:/_1/tests;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>E:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/INCLUDE;E:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/ATLMFC/INCLUDE;C:/Program Files (x86)/Windows Kits/8.1/include/shared;C:/Program Files (x86)/Windows Kits/8.1/include/um;C:/Program Files (x86)/Windows Kits/8.1/include/winrt;F:/_1/windows;F:/_1/windows/thirdparty;F:/_1;F:/_1/include;F:/_1/lib;F:/_1/ofproto;F:/_1/ovsdb;F:/_1/utilities;F:/_1/tests;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:X86 /debug %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;..\windows\thirdparty\libeay32.lib;..\windows\thirdparty\ssleay32.lib;..\windows\Debug\win_api.lib;..\ofproto\Debug\ofproto.lib;..\lib\Debug\openvswitch.lib;..\windows\thirdparty\libeay32.lib;..\windows\thirdparty\ssleay32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>F:/_1/windows/thirdparty;F:/_1/windows/thirdparty/$(Configuration);;F:/_1;F:/_1/$(Configuration);;F:/_1/include;F:/_1/include/$(Configuration);;F:/_1/lib;F:/_1/lib/$(Configuration);;F:/_1/ovsdb;F:/_1/ovsdb/$(Configuration);;F:/_1/utilities;F:/_1/utilities/$(Configuration);;F:/_1/windows;F:/_1/windows/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ImportLibrary>F:/_1/utilities/Debug/ovs-ofctl.lib</ImportLibrary>
+      <ProgramDataBaseFile>F:/_1/utilities/Debug/ovs-ofctl.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version></Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>E:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/INCLUDE;E:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/ATLMFC/INCLUDE;C:/Program Files (x86)/Windows Kits/8.1/include/shared;C:/Program Files (x86)/Windows Kits/8.1/include/um;C:/Program Files (x86)/Windows Kits/8.1/include/winrt;F:/_1/windows;F:/_1/windows/thirdparty;F:/_1;F:/_1/include;F:/_1/lib;F:/_1/ofproto;F:/_1/ovsdb;F:/_1/utilities;F:/_1/tests;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CompileAs>CompileAsC</CompileAs>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat></DebugInformationFormat>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>Release</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>F:/_1/utilities/Release/ovs-ofctl.pdb</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>E:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/INCLUDE;E:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/ATLMFC/INCLUDE;C:/Program Files (x86)/Windows Kits/8.1/include/shared;C:/Program Files (x86)/Windows Kits/8.1/include/um;C:/Program Files (x86)/Windows Kits/8.1/include/winrt;F:/_1/windows;F:/_1/windows/thirdparty;F:/_1;F:/_1/include;F:/_1/lib;F:/_1/ofproto;F:/_1/ovsdb;F:/_1/utilities;F:/_1/tests;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>E:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/INCLUDE;E:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/ATLMFC/INCLUDE;C:/Program Files (x86)/Windows Kits/8.1/include/shared;C:/Program Files (x86)/Windows Kits/8.1/include/um;C:/Program Files (x86)/Windows Kits/8.1/include/winrt;F:/_1/windows;F:/_1/windows/thirdparty;F:/_1;F:/_1/include;F:/_1/lib;F:/_1/ofproto;F:/_1/ovsdb;F:/_1/utilities;F:/_1/tests;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:X86 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;..\windows\thirdparty\libeay32.lib;..\windows\thirdparty\ssleay32.lib;..\windows\Release\win_api.lib;..\ofproto\Release\ofproto.lib;..\lib\Release\openvswitch.lib;..\windows\thirdparty\libeay32.lib;..\windows\thirdparty\ssleay32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>F:/_1/windows/thirdparty;F:/_1/windows/thirdparty/$(Configuration);;F:/_1;F:/_1/$(Configuration);;F:/_1/include;F:/_1/include/$(Configuration);;F:/_1/lib;F:/_1/lib/$(Configuration);;F:/_1/ovsdb;F:/_1/ovsdb/$(Configuration);;F:/_1/utilities;F:/_1/utilities/$(Configuration);;F:/_1/windows;F:/_1/windows/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <ImportLibrary>F:/_1/utilities/Release/ovs-ofctl.lib</ImportLibrary>
+      <ProgramDataBaseFile>F:/_1/utilities/Release/ovs-ofctl.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version></Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>E:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/INCLUDE;E:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/ATLMFC/INCLUDE;C:/Program Files (x86)/Windows Kits/8.1/include/shared;C:/Program Files (x86)/Windows Kits/8.1/include/um;C:/Program Files (x86)/Windows Kits/8.1/include/winrt;F:/_1/windows;F:/_1/windows/thirdparty;F:/_1;F:/_1/include;F:/_1/lib;F:/_1/ofproto;F:/_1/ovsdb;F:/_1/utilities;F:/_1/tests;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CompileAs>CompileAsC</CompileAs>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat></DebugInformationFormat>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="MinSizeRel";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>MinSizeRel</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>F:/_1/utilities/MinSizeRel/ovs-ofctl.pdb</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>E:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/INCLUDE;E:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/ATLMFC/INCLUDE;C:/Program Files (x86)/Windows Kits/8.1/include/shared;C:/Program Files (x86)/Windows Kits/8.1/include/um;C:/Program Files (x86)/Windows Kits/8.1/include/winrt;F:/_1/windows;F:/_1/windows/thirdparty;F:/_1;F:/_1/include;F:/_1/lib;F:/_1/ofproto;F:/_1/ovsdb;F:/_1/utilities;F:/_1/tests;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>E:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/INCLUDE;E:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/ATLMFC/INCLUDE;C:/Program Files (x86)/Windows Kits/8.1/include/shared;C:/Program Files (x86)/Windows Kits/8.1/include/um;C:/Program Files (x86)/Windows Kits/8.1/include/winrt;F:/_1/windows;F:/_1/windows/thirdparty;F:/_1;F:/_1/include;F:/_1/lib;F:/_1/ofproto;F:/_1/ovsdb;F:/_1/utilities;F:/_1/tests;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:X86 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;..\windows\thirdparty\libeay32.lib;..\windows\thirdparty\ssleay32.lib;..\windows\MinSizeRel\win_api.lib;..\ofproto\MinSizeRel\ofproto.lib;..\lib\MinSizeRel\openvswitch.lib;..\windows\thirdparty\libeay32.lib;..\windows\thirdparty\ssleay32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>F:/_1/windows/thirdparty;F:/_1/windows/thirdparty/$(Configuration);;F:/_1;F:/_1/$(Configuration);;F:/_1/include;F:/_1/include/$(Configuration);;F:/_1/lib;F:/_1/lib/$(Configuration);;F:/_1/ovsdb;F:/_1/ovsdb/$(Configuration);;F:/_1/utilities;F:/_1/utilities/$(Configuration);;F:/_1/windows;F:/_1/windows/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <ImportLibrary>F:/_1/utilities/MinSizeRel/ovs-ofctl.lib</ImportLibrary>
+      <ProgramDataBaseFile>F:/_1/utilities/MinSizeRel/ovs-ofctl.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version></Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>E:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/INCLUDE;E:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/ATLMFC/INCLUDE;C:/Program Files (x86)/Windows Kits/8.1/include/shared;C:/Program Files (x86)/Windows Kits/8.1/include/um;C:/Program Files (x86)/Windows Kits/8.1/include/winrt;F:/_1/windows;F:/_1/windows/thirdparty;F:/_1;F:/_1/include;F:/_1/lib;F:/_1/ofproto;F:/_1/ovsdb;F:/_1/utilities;F:/_1/tests;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CompileAs>CompileAsC</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="RelWithDebInfo";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>RelWithDebInfo</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>F:/_1/utilities/RelWithDebInfo/ovs-ofctl.pdb</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"RelWithDebInfo\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>E:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/INCLUDE;E:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/ATLMFC/INCLUDE;C:/Program Files (x86)/Windows Kits/8.1/include/shared;C:/Program Files (x86)/Windows Kits/8.1/include/um;C:/Program Files (x86)/Windows Kits/8.1/include/winrt;F:/_1/windows;F:/_1/windows/thirdparty;F:/_1;F:/_1/include;F:/_1/lib;F:/_1/ofproto;F:/_1/ovsdb;F:/_1/utilities;F:/_1/tests;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>E:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/INCLUDE;E:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/ATLMFC/INCLUDE;C:/Program Files (x86)/Windows Kits/8.1/include/shared;C:/Program Files (x86)/Windows Kits/8.1/include/um;C:/Program Files (x86)/Windows Kits/8.1/include/winrt;F:/_1/windows;F:/_1/windows/thirdparty;F:/_1;F:/_1/include;F:/_1/lib;F:/_1/ofproto;F:/_1/ovsdb;F:/_1/utilities;F:/_1/tests;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:X86 /debug %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;..\windows\thirdparty\libeay32.lib;..\windows\thirdparty\ssleay32.lib;..\windows\RelWithDebInfo\win_api.lib;..\ofproto\RelWithDebInfo\ofproto.lib;..\lib\RelWithDebInfo\openvswitch.lib;..\windows\thirdparty\libeay32.lib;..\windows\thirdparty\ssleay32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>F:/_1/windows/thirdparty;F:/_1/windows/thirdparty/$(Configuration);;F:/_1;F:/_1/$(Configuration);;F:/_1/include;F:/_1/include/$(Configuration);;F:/_1/lib;F:/_1/lib/$(Configuration);;F:/_1/ovsdb;F:/_1/ovsdb/$(Configuration);;F:/_1/utilities;F:/_1/utilities/$(Configuration);;F:/_1/windows;F:/_1/windows/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ImportLibrary>F:/_1/utilities/RelWithDebInfo/ovs-ofctl.lib</ImportLibrary>
+      <ProgramDataBaseFile>F:/_1/utilities/RelWithDebInfo/ovs-ofctl.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version></Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule F:/_1/utilities/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+"C:\Program Files (x86)\CMake 2.8\bin\cmake.exe" -HF:/_1 -BF:/_1 --check-stamp-file F:\_1\utilities\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">F:/_1/utilities/CMakeLists.txt;F:\_1\utilities\CMakeLists.txt;F:\_1\utilities\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">F:\_1\utilities\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule F:/_1/utilities/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+"C:\Program Files (x86)\CMake 2.8\bin\cmake.exe" -HF:/_1 -BF:/_1 --check-stamp-file F:\_1\utilities\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">F:/_1/utilities/CMakeLists.txt;F:\_1\utilities\CMakeLists.txt;F:\_1\utilities\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">F:\_1\utilities\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Building Custom Rule F:/_1/utilities/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
+"C:\Program Files (x86)\CMake 2.8\bin\cmake.exe" -HF:/_1 -BF:/_1 --check-stamp-file F:\_1\utilities\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">F:/_1/utilities/CMakeLists.txt;F:\_1\utilities\CMakeLists.txt;F:\_1\utilities\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">F:\_1\utilities\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Building Custom Rule F:/_1/utilities/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
+"C:\Program Files (x86)\CMake 2.8\bin\cmake.exe" -HF:/_1 -BF:/_1 --check-stamp-file F:\_1\utilities\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">F:/_1/utilities/CMakeLists.txt;F:\_1\utilities\CMakeLists.txt;F:\_1\utilities\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">F:\_1\utilities\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ovs-ofctl.c"  />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="F:/_1/ZERO_CHECK.vcxproj">
+      <Project>49CD280D-50F8-49C4-BD41-E8608AFB0A91</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/ofproto/ofproto.vcxproj">
+      <Project>E0E7830B-776A-4062-836E-410CA2295C16</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/lib/openvswitch.vcxproj">
+      <Project>DFB0CEB7-256A-4136-BCCA-D228F681C5A7</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/windows/win_api.vcxproj">
+      <Project>45E4742E-9B62-4D5A-BC1C-5BDEA6F56F04</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

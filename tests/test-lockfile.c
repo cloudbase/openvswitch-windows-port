@@ -23,18 +23,28 @@
 #include <sys/stat.h>
 #include <sys/wait.h>
 #include <unistd.h>
+#ifdef _WIN32
+#include "lib/process.h"
+#endif
 
 #include "process.h"
 #include "timeval.h"
 #include "util.h"
 #include "vlog.h"
 
+static int process = 0;
+
 struct test {
     const char *name;
     void (*function)(void);
 };
+#ifdef _WIN32
+#define NUMBER 12
+#else
+#define NUMBER 
+#endif
 
-static const struct test tests[];
+static const struct test tests[NUMBER];
 
 #define CHECK(A, B) check(A, B, #A, #B, __FILE__, __LINE__)
 static void
@@ -182,7 +192,11 @@ run_lock_symlink(void)
     struct stat s;
 
     /* Create a symlink .a.~lock~ pointing to .b.~lock~. */
+#ifndef _WIN32
     CHECK(symlink(".b.~lock~", ".a.~lock~"), 0);
+#else
+    CHECK(CreateSymbolicLink(".b.~lock~", ".a.~lock~", 0),0);
+#endif
     CHECK(lstat(".a.~lock~", &s), 0);
     CHECK(S_ISLNK(s.st_mode) != 0, 1);
     CHECK(stat(".a.~lock~", &s), -1);
@@ -221,8 +235,14 @@ run_lock_symlink_to_dir(void)
     struct stat s;
 
     /* Create a symlink "a" pointing to "dir/b". */
+
+#ifndef _WIN32
     CHECK(mkdir("dir", 0700), 0);
     CHECK(symlink("dir/b", "a"), 0);
+#else
+    CHECK(_mkdir("dir"), 0);
+    CHECK(CreateSymbolicLink("dir/b", "a", 0), 0);
+#endif
     CHECK(lstat("a", &s), 0);
     CHECK(S_ISLNK(s.st_mode) != 0, 1);
 
@@ -289,18 +309,34 @@ main(int argc, char *argv[])
 
             (tests[i].function)();
 
-            n_children = 0;
+            n_children = 0; 
+#ifndef _WIN32
             while (wait(&status) > 0) {
+#else
+            HANDLE processHandle = 0;
+            if (process)
+                processHandle = GetCurrentProcess();
+            else
+                processHandle = GetCurrentProcess();
+            while (process && WaitForSingleObject(processHandle, 5000)){
+#endif 
+#ifndef _WIN32
                 if (WIFEXITED(status) && WEXITSTATUS(status) == 11) {
+#else
+                GetExitCodeProcess(processHandle, &status);
+                if (WIFEXITED(status) && WEXITSTATUS(status) == 11 || process == 0) {
+#endif
                     n_children++;
                 } else {
                     ovs_fatal(0, "child exited in unexpected way: %s",
                               process_status_msg(status));
                 }
             }
+#ifndef _WIN32
             if (errno != ECHILD) {
                 ovs_fatal(errno, "wait");
             }
+#endif
 
             printf("%s: success (%d child%s)\n",
                    tests[i].name, n_children, n_children != 1 ? "ren" : "");

@@ -51,7 +51,9 @@ VLOG_DEFINE_THIS_MODULE(system_stats);
  * of the target, by writing "if (LINUX_DATAPATH)" instead of "#ifdef
  * __linux__" where this is possible. */
 #ifdef LINUX_DATAPATH
+#ifndef _WIN32
 #include <asm/param.h>
+#endif
 #else
 #define LINUX_DATAPATH 0
 #endif
@@ -59,7 +61,13 @@ VLOG_DEFINE_THIS_MODULE(system_stats);
 static void
 get_cpu_cores(struct smap *stats)
 {
+#ifdef _WIN32
+    SYSTEM_INFO info_temp;
+    GetSystemInfo(&info_temp);
+    long int n_cores = info_temp.dwNumberOfProcessors;
+#else
     long int n_cores = sysconf(_SC_NPROCESSORS_ONLN);
+#endif
     if (n_cores > 0) {
         smap_add_format(stats, "cpu", "%ld", n_cores);
     }
@@ -83,8 +91,17 @@ get_page_size(void)
 {
     static unsigned int cached;
 
+#ifdef _WIN32
+    SYSTEM_INFO info_temp;
+    GetSystemInfo(&info_temp);
+    long int value = info_temp.dwPageSize;
+#else
+    long int value = sysconf(_SC_PAGESIZE);
+#endif
     if (!cached) {
+#ifndef _WIN32
         long int value = sysconf(_SC_PAGESIZE);
+#endif
         if (value >= 0) {
             cached = value;
         }
@@ -96,9 +113,21 @@ get_page_size(void)
 static void
 get_memory_stats(struct smap *stats)
 {
+#ifdef _WIN32
+    MEMORYSTATUSEX status;
+    status.dwLength = sizeof(status);
+    GlobalMemoryStatusEx(&status);
+    SYSTEM_INFO info_temp;
+    GetSystemInfo(&info_temp);
+    long int phys_pages = (long int)status.ullTotalPhys / info_temp.dwPageSize;
+#else
+    long int value = sysconf(_SC_PHYS_PAGES);
+#endif
     if (!LINUX_DATAPATH) {
         unsigned int pagesize = get_page_size();
+#ifndef _WIN32
         long int phys_pages = sysconf(_SC_PHYS_PAGES);
+#endif
 #ifdef _SC_AVPHYS_PAGES
         long int avphys_pages = sysconf(_SC_AVPHYS_PAGES);
 #else

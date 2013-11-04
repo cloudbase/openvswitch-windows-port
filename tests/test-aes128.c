@@ -38,7 +38,11 @@ hex_to_uint8(const char *input, uint8_t *output, size_t n)
     return;
 
 error:
+#ifdef _WIN32
+    ovs_fatal(0, "\"%s\" is not exactly %lu hex digits", input, n * 2);
+#else
     ovs_fatal(0, "\"%s\" is not exactly %zu hex digits", input, n * 2);
+#endif
 }
 
 int

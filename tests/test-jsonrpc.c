@@ -34,7 +34,12 @@
 #include "util.h"
 #include "vlog.h"
 
-static struct command all_commands[];
+#ifdef _WIN32
+#define NUMBER 12
+#else
+#define NUMBER
+#endif
+static struct command all_commands[NUMBER];
 
 static void usage(void) NO_RETURN;
 static void parse_options(int argc, char *argv[]);
@@ -42,6 +47,22 @@ static void parse_options(int argc, char *argv[]);
 int
 main(int argc, char *argv[])
 {
+#ifdef _WIN32
+    WORD wVersionRequested;
+    WSADATA wsaData;
+    int err;
+
+    /* Use the MAKEWORD(lowbyte, highbyte) macro declared in Windef.h */
+    wVersionRequested = MAKEWORD(2, 2);
+
+    err = WSAStartup(wVersionRequested, &wsaData);
+    if (err != 0) {
+        /* Tell the user that we could not find a usable */
+        /* Winsock DLL.                                  */
+        printf("WSAStartup failed with error: %d\n", err);
+        return 1;
+    }
+#endif
     proctitle_init(argc, argv);
     set_program_name(argv[0]);
     parse_options(argc, argv);
@@ -64,8 +85,10 @@ parse_options(int argc, char *argv[])
         STREAM_SSL_LONG_OPTIONS,
         {NULL, 0, NULL, 0},
     };
-    char *short_options = long_options_to_short_options(long_options);
 
+    //printf("ceva");
+    char *short_options = long_options_to_short_options(long_options); 
+    
     for (;;) {
         int c = getopt_long(argc, argv, short_options, long_options, NULL);
         if (c == -1) {

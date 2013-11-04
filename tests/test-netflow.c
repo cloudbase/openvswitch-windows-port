@@ -156,13 +156,25 @@ print_netflow(struct ofpbuf *buf)
     }
 
     if (buf->size) {
+#ifdef _WIN32
+        printf("%lu extra bytes after last record\n", buf->size);
+#else
         printf("%zu extra bytes after last record\n", buf->size);
+#endif
     }
 }
 
 int
 main(int argc, char *argv[])
 {
+#ifdef _WIN32
+    WSADATA wsaData;
+    if (WSAStartup(MAKEWORD(1, 1), &wsaData) != 0)
+    {
+        printf("WSAStartup() failed miserably! With error code %ld\n", WSAGetLastError());
+        return 1;
+    }
+#endif
     struct unixctl_server *server;
     enum { MAX_RECV = 1500 };
     const char *target;

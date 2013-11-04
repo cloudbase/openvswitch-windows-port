@@ -262,6 +262,10 @@ error:
 void
 vconn_run(struct vconn *vconn)
 {
+    if (vconn == NULL)
+    {
+        return;
+    }
     if (vconn->state == VCS_CONNECTING ||
         vconn->state == VCS_SEND_HELLO ||
         vconn->state == VCS_RECV_HELLO) {

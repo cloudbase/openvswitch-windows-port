@@ -1,0 +1,14 @@
+enable
+
+# Connection succeeds.
+run
+connected
+
+# Send inactivity probe.
+timeout
+run
+
+# Idle timeout kills connection.
+timeout
+run
+disconnected

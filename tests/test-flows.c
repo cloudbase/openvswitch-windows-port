@@ -42,8 +42,13 @@ main(int argc OVS_UNUSED, char *argv[])
 
     set_program_name(argv[0]);
 
+#ifdef _WIN32
+    flows = fopen("flows", "rb");
+    pcap = fopen("pcap", "rb");
+#else
     flows = stdin;
     pcap = fdopen(3, "rb");
+#endif
     if (!pcap) {
         ovs_fatal(errno, "failed to open fd 3 for reading");
     }

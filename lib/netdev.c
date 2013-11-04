@@ -1100,6 +1100,26 @@ netdev_get_qos(const struct netdev *netdev,
         return 0;
     }
 }
+/*Prerequisite for openflowd this can be removed after the integration 
+of the driver*/
+int
+netdev_open_default(const char *name, struct netdev **netdevp)
+{
+    struct netdev_options {
+        const char *name;
+        const char *type;
+        const struct shash *args;
+        int ethertype;
+    };
+
+    struct netdev_options options;
+
+    memset(&options, 0, sizeof options);
+    options.name = name;
+    options.ethertype = -128;
+
+    return netdev_open(options.name, options.type, netdevp);
+}
 
 /* Attempts to reconfigure QoS on 'netdev', changing the form of QoS to 'type'
  * with details of configuration from 'details'.  Returns 0 if successful,

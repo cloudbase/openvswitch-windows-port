@@ -69,8 +69,13 @@ static bool timestamp;
 
 /* Format for table output. */
 static struct table_style table_style = TABLE_STYLE_DEFAULT;
+#ifdef _WIN32
+#define NUMBER 10
+#else
+#define NUMBER
+#endif
 
-static const struct ovsdb_client_command all_commands[];
+static const struct ovsdb_client_command all_commands[NUMBER];
 
 static void usage(void) NO_RETURN;
 static void parse_options(int argc, char *argv[]);
@@ -80,6 +85,22 @@ static void fetch_dbs(struct jsonrpc *, struct svec *dbs);
 int
 main(int argc, char *argv[])
 {
+#ifdef _WIN32
+    WORD wVersionRequested;
+    WSADATA wsaData;
+    int err;
+
+    /* Use the MAKEWORD(lowbyte, highbyte) macro declared in Windef.h */
+    wVersionRequested = MAKEWORD(2, 2);
+
+    err = WSAStartup(wVersionRequested, &wsaData);
+    if (err != 0) {
+        /* Tell the user that we could not find a usable */
+        /* Winsock DLL.                                  */
+        printf("WSAStartup failed with error: %d\n", err);
+        return 1;
+    }
+#endif
     const struct ovsdb_client_command *command;
     const char *database;
     struct jsonrpc *rpc;
@@ -109,7 +130,11 @@ main(int argc, char *argv[])
                 && strchr(argv[optind], ':'))) {
             rpc = open_jsonrpc(argv[optind++]);
         } else {
+#ifndef _WIN32
             char *sock = xasprintf("unix:%s/db.sock", ovs_rundir());
+#else
+            char *sock = xasprintf("tcp:127.0.0.1:5559", ovs_rundir());
+#endif
             rpc = open_jsonrpc(sock);
             free(sock);
         }
@@ -117,7 +142,7 @@ main(int argc, char *argv[])
         rpc = NULL;
     }
 
-    if (command->need == NEED_DATABASE) {
+    if (command->need == NEED_DATABASE && rpc) {
         struct svec dbs;
 
         svec_init(&dbs);
@@ -144,9 +169,11 @@ main(int argc, char *argv[])
                     command->name);
     }
 
-    command->handler(rpc, database, argc - optind, argv + optind);
+    if (rpc)
+        command->handler(rpc, database, argc - optind, argv + optind);
 
-    jsonrpc_close(rpc);
+    if (rpc)
+        jsonrpc_close(rpc);
 
     if (ferror(stdout)) {
         VLOG_FATAL("write to stdout failed");
@@ -388,7 +415,11 @@ fetch_dbs(struct jsonrpc *rpc, struct svec *dbs)
         const struct json *name = reply->result->u.array.elems[i];
 
         if (name->type != JSON_STRING) {
+#ifdef _WIN32
+            ovs_fatal(0, "list_dbs response %lu is not string", i);
+#else
             ovs_fatal(0, "list_dbs response %zu is not string", i);
+#endif
         }
         svec_add(dbs, name->u.string);
     }
@@ -848,8 +879,13 @@ dump_table(const struct ovsdb_table_schema *ts, struct json_array *rows)
         struct shash *row;
 
         if (rows->elems[y]->type != JSON_OBJECT) {
-            ovs_fatal(0,  "row %zu in table %s response is not a JSON object: "
+#ifdef _WIN32
+            ovs_fatal(0, "row %lu in table %s response is not a JSON object: "
                       "%s", y, ts->name, json_to_string(rows->elems[y], 0));
+#else
+            ovs_fatal(0,  "row %zu in table %s response is not a JSON object: "
+                "%s", y, ts->name, json_to_string(rows->elems[y], 0));
+#endif
         }
         row = json_object(rows->elems[y]);
 
@@ -857,8 +893,13 @@ dump_table(const struct ovsdb_table_schema *ts, struct json_array *rows)
         for (x = 0; x < n_columns; x++) {
             const struct json *json = shash_find_data(row, columns[x]->name);
             if (!json) {
-                ovs_fatal(0, "row %zu in table %s response lacks %s column",
+#ifdef _WIN32
+                ovs_fatal(0, "row %lu in table %s response lacks %s column",
                           y, ts->name, columns[x]->name);
+#else
+                ovs_fatal(0, "row %zu in table %s response lacks %s column",
+                    y, ts->name, columns[x]->name);
+#endif
             }
 
             check_ovsdb_error(ovsdb_datum_from_json(&data[y][x],
@@ -946,8 +987,13 @@ do_dump(struct jsonrpc *rpc, const char *database,
     /* Print database contents. */
     if (reply->result->type != JSON_ARRAY
         || reply->result->u.array.n != n_tables) {
-        ovs_fatal(0, "reply is not array of %zu elements: %s",
+#ifdef _WIN32
+        ovs_fatal(0, "reply is not array of %lu elements: %s",
                   n_tables, json_to_string(reply->result, 0));
+#else
+        ovs_fatal(0, "reply is not array of %zu elements: %s",
+            n_tables, json_to_string(reply->result, 0));
+#endif
     }
     for (i = 0; i < n_tables; i++) {
         const struct ovsdb_table_schema *ts = tables[i]->data;

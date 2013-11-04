@@ -2071,9 +2071,18 @@ ovsdb_idl_txn_process_inc_reply(struct ovsdb_idl_txn *txn,
     struct shash *mutate, *select;
 
     if (txn->inc_index + 2 > results->n) {
-        VLOG_WARN_RL(&syntax_rl, "reply does not contain enough operations "
-                     "for increment (has %zu, needs %u)",
+        
+#ifdef _WIN32
+        VLOG_WARN_RL(&syntax_rl, 
+            "reply does not contain enough operations "
+                     "for increment (has %lu, needs %u)",
                      results->n, txn->inc_index + 2);
+#else
+        VLOG_WARN_RL(&syntax_rl, "reply does not contain enough operations "
+            "for increment (has %zu, needs %u)",
+            results->n, txn->inc_index + 2);
+#endif
+                     
         return false;
     }
 
@@ -2097,9 +2106,15 @@ ovsdb_idl_txn_process_inc_reply(struct ovsdb_idl_txn *txn,
         return false;
     }
     if (rows->u.array.n != 1) {
-        VLOG_WARN_RL(&syntax_rl, "\"select\" reply \"rows\" has %zu elements "
+#ifdef _WIN32
+        VLOG_WARN_RL(&syntax_rl, "\"select\" reply \"rows\" has %lu elements "
                      "instead of 1",
                      rows->u.array.n);
+#else
+        VLOG_WARN_RL(&syntax_rl, "\"select\" reply \"rows\" has %zu elements "
+            "instead of 1",
+            rows->u.array.n);
+#endif
         return false;
     }
     row = rows->u.array.elems[0];
@@ -2126,9 +2141,15 @@ ovsdb_idl_txn_process_insert_reply(struct ovsdb_idl_txn_insert *insert,
     struct shash *reply;
 
     if (insert->op_index >= results->n) {
+#ifdef _WIN32
         VLOG_WARN_RL(&syntax_rl, "reply does not contain enough operations "
-                     "for insert (has %zu, needs %u)",
+                     "for insert (has %lu, needs %u)",
                      results->n, insert->op_index);
+#else
+        VLOG_WARN_RL(&syntax_rl, "reply does not contain enough operations "
+            "for insert (has %zu, needs %u)",
+            results->n, insert->op_index);
+#endif
         return false;
     }
 

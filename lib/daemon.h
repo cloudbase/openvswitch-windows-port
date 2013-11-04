@@ -20,6 +20,9 @@
 #include <limits.h>
 #include <stdbool.h>
 #include <sys/types.h>
+#ifdef _WIN32
+#include <unistd.h>
+#endif
 
 #define DAEMON_OPTION_ENUMS                     \
     OPT_DETACH,                                 \

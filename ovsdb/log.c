@@ -295,7 +295,11 @@ ovsdb_log_read(struct ovsdb_log *file, struct json **jsonp)
     }
 
     file->prev_offset = file->offset;
+#ifdef _WIN32
+    file->offset = data_offset + data_length + 2;
+#else
     file->offset = data_offset + data_length;
+#endif
     *jsonp = json;
     return NULL;
 
@@ -360,8 +364,14 @@ ovsdb_log_write(struct ovsdb_log *file, struct json *json)
 
     /* Compose header. */
     sha1_bytes(json_string, length, sha1);
-    snprintf(header, sizeof header, "%s%zu "SHA1_FMT"\n",
+#ifdef _WIN32
+    //AS HACK zu on win doesn't exist adding lu as a substitute
+    snprintf(header, sizeof header, "%s%lu "SHA1_FMT"\n",
              magic, length, SHA1_ARGS(sha1));
+#else
+    snprintf(header, sizeof header, "%s%zu "SHA1_FMT"\n",
+        magic, length, SHA1_ARGS(sha1));
+#endif
 
     /* Write. */
     if (fwrite(header, strlen(header), 1, file->stream) != 1

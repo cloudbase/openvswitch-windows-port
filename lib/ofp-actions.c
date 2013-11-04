@@ -199,10 +199,17 @@ dec_ttl_cnt_ids_from_openflow(const struct nx_action_cnt_ids *nac_ids,
     }
 
     if (ids_size < ids->n_controllers * sizeof(ovs_be16)) {
-        VLOG_WARN_RL(&rl, "Nicira action dec_ttl_cnt_ids only has %zu bytes "
-                     "allocated for controller ids.  %zu bytes are required for "
+#ifdef _WIN32
+        VLOG_WARN_RL(&rl, "Nicira action dec_ttl_cnt_ids only has %lu bytes "
+                     "allocated for controller ids.  %lu bytes are required for "
                      "%"PRIu16" controllers.", ids_size,
                      ids->n_controllers * sizeof(ovs_be16), ids->n_controllers);
+#else
+        VLOG_WARN_RL(&rl, "Nicira action dec_ttl_cnt_ids only has %zu bytes "
+            "allocated for controller ids.  %zu bytes are required for "
+            "%"PRIu16" controllers.", ids_size,
+            ids->n_controllers * sizeof(ovs_be16), ids->n_controllers);
+#endif
         return OFPERR_OFPBAC_BAD_LEN;
     }
 
@@ -485,7 +492,7 @@ ofpact_from_openflow10(const union ofp_action *a, struct ofpbuf *out)
 
 #define NXAST_ACTION(ENUM, STRUCT, EXTENSIBLE, NAME) case OFPUTIL_##ENUM:
 #include "ofp-util.def"
-	return ofpact_from_nxast(a, code, out);
+    return ofpact_from_nxast(a, code, out);
     }
 
     return error;
@@ -583,9 +590,16 @@ ofpacts_pull_actions(struct ofpbuf *openflow, unsigned int actions_len,
 
     actions = ofpbuf_try_pull(openflow, actions_len);
     if (actions == NULL) {
-        VLOG_WARN_RL(&rl, "OpenFlow message actions length %u exceeds "
-                     "remaining message length (%zu)",
+#ifdef _WIN32
+        VLOG_WARN_RL(&rl, 
+                    "OpenFlow message actions length %u exceeds "
+                     "remaining message length (%lu)",
                      actions_len, openflow->size);
+#else
+        VLOG_WARN_RL(&rl, "OpenFlow message actions length %u exceeds "
+            "remaining message length (%zu)",
+            actions_len, openflow->size);
+#endif
         return OFPERR_OFPBRC_BAD_LEN;
     }
 
@@ -909,8 +923,13 @@ decode_openflow11_instructions(const struct ofp11_instruction insts[],
     }
 
     if (left) {
-        VLOG_WARN_RL(&rl, "bad instruction format at offset %zu",
+#ifdef _WIN32
+        VLOG_WARN_RL(&rl, "bad instruction format at offset %lu",
                      (n_insts - left) * sizeof *inst);
+#else
+        VLOG_WARN_RL(&rl, "bad instruction format at offset %zu",
+            (n_insts - left) * sizeof *inst);
+#endif
         return OFPERR_OFPBIC_BAD_LEN;
     }
     return 0;
@@ -970,9 +989,15 @@ ofpacts_pull_openflow11_instructions(struct ofpbuf *openflow,
 
     instructions = ofpbuf_try_pull(openflow, instructions_len);
     if (instructions == NULL) {
+#ifdef _WIN32
         VLOG_WARN_RL(&rl, "OpenFlow message instructions length %u exceeds "
-                     "remaining message length (%zu)",
+                     "remaining message length (%lu)",
                      instructions_len, openflow->size);
+#else
+        VLOG_WARN_RL(&rl, "OpenFlow message instructions length %u exceeds "
+            "remaining message length (%zu)",
+            instructions_len, openflow->size);
+#endif
         error = OFPERR_OFPBIC_BAD_LEN;
         goto exit;
     }

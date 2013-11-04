@@ -125,7 +125,11 @@ ofp_print_packet_in(struct ds *string, const struct ofp_header *oh,
     ds_put_format(string, " (via %s)",
                   ofputil_packet_in_reason_to_string(pin.reason));
 
+#ifdef _WIN32
+    ds_put_format(string, " data_len=%lu", pin.packet_len);
+#else
     ds_put_format(string, " data_len=%zu", pin.packet_len);
+#endif
     if (pin.buffer_id == UINT32_MAX) {
         ds_put_format(string, " (unbuffered)");
         if (pin.total_len != pin.packet_len) {
@@ -169,7 +173,11 @@ ofp_print_packet_out(struct ds *string, const struct ofp_header *oh,
     ofpacts_format(po.ofpacts, po.ofpacts_len, string);
 
     if (po.buffer_id == UINT32_MAX) {
+#ifdef _WIN32
+        ds_put_format(string, " data_len=%lu", po.packet_len);
+#else
         ds_put_format(string, " data_len=%zu", po.packet_len);
+#endif
         if (verbosity > 0 && po.packet_len > 0) {
             char *packet = ofp_packet_to_string(po.packet, po.packet_len);
             ds_put_char(string, '\n');
@@ -540,8 +548,12 @@ ofp_print_switch_config(struct ds *string, const struct ofp_switch_config *osc)
 }
 
 static void print_wild(struct ds *string, const char *leader, int is_wild,
-            int verbosity, const char *format, ...)
-            __attribute__((format(printf, 5, 6)));
+    int verbosity, const char *format, ...)
+#ifndef _WIN32
+    __attribute__((format(printf, 5, 6)));
+#else
+    ;
+#endif
 
 static void print_wild(struct ds *string, const char *leader, int is_wild,
                        int verbosity, const char *format, ...)
@@ -1105,7 +1117,11 @@ ofp_print_ofpst_port_reply(struct ds *string, const struct ofp_header *oh,
 {
     struct ofpbuf b;
 
+#ifdef _WIN32
+    ds_put_format(string, " %lu ports\n", ofputil_count_port_stats(oh));
+#else
     ds_put_format(string, " %zu ports\n", ofputil_count_port_stats(oh));
+#endif
     if (verbosity < 1) {
         return;
     }
@@ -1204,7 +1220,11 @@ ofp_print_ofpst_table_reply12(struct ds *string, const struct ofp_header *oh,
     ofpraw_pull_assert(&b);
 
     n = b.size / sizeof *ts;
+#ifdef _WIN32
+    ds_put_format(string, " %lu tables\n", n);
+#else
     ds_put_format(string, " %zu tables\n", n);
+#endif
     if (verbosity < 1) {
         return;
     }
@@ -1231,7 +1251,11 @@ ofp_print_ofpst_table_reply11(struct ds *string, const struct ofp_header *oh,
     ofpraw_pull_assert(&b);
 
     n = b.size / sizeof *ts;
+#ifdef _WIN32
+    ds_put_format(string, " %lu tables\n", n);
+#else
     ds_put_format(string, " %zu tables\n", n);
+#endif
     if (verbosity < 1) {
         return;
     }
@@ -1271,7 +1295,11 @@ ofp_print_ofpst_table_reply10(struct ds *string, const struct ofp_header *oh,
     ofpraw_pull_assert(&b);
 
     n = b.size / sizeof *ts;
+#ifdef _WIN32
+    ds_put_format(string, " %lu tables\n", n);
+#else
     ds_put_format(string, " %zu tables\n", n);
+#endif
     if (verbosity < 1) {
         return;
     }
@@ -1351,7 +1379,11 @@ ofp_print_ofpst_queue_reply(struct ds *string, const struct ofp_header *oh,
 {
     struct ofpbuf b;
 
+#ifdef _WIN32
+    ds_put_format(string, " %lu queues\n", ofputil_count_queue_stats(oh));
+#else
     ds_put_format(string, " %zu queues\n", ofputil_count_queue_stats(oh));
+#endif
     if (verbosity < 1) {
         return;
     }
@@ -1426,7 +1458,11 @@ ofp_print_echo(struct ds *string, const struct ofp_header *oh, int verbosity)
 {
     size_t len = ntohs(oh->length);
 
+#ifdef _WIN32
+    ds_put_format(string, " %lu bytes of payload\n", len - sizeof *oh);
+#else
     ds_put_format(string, " %zu bytes of payload\n", len - sizeof *oh);
+#endif
     if (verbosity > 1) {
         ds_put_hex_dump(string, oh + 1, len - sizeof *oh, 0, true);
     }
@@ -1905,8 +1941,13 @@ ofp_to_string(const void *oh_, size_t len, int verbosity)
     if (!len) {
         ds_put_cstr(&string, "OpenFlow message is empty\n");
     } else if (len < sizeof(struct ofp_header)) {
-        ds_put_format(&string, "OpenFlow packet too short (only %zu bytes):\n",
+#ifdef _WIN32
+        ds_put_format(&string, "OpenFlow packet too short (only %lu bytes):\n",
                       len);
+#else
+        ds_put_format(&string, "OpenFlow packet too short (only %zu bytes):\n",
+            len);
+#endif
     } else if (ntohs(oh->length) > len) {
         enum ofperr error;
         enum ofpraw raw;
@@ -1917,13 +1958,25 @@ ofp_to_string(const void *oh_, size_t len, int verbosity)
             ds_put_char(&string, '\n');
         }
 
+#ifdef _WIN32
         ds_put_format(&string,
-                      "(***truncated to %zu bytes from %"PRIu16"***)\n",
+                      "(***truncated to %lu bytes from %"PRIu16"***)\n",
                       len, ntohs(oh->length));
-    } else if (ntohs(oh->length) < len) {
+#else
         ds_put_format(&string,
-                      "(***only uses %"PRIu16" bytes out of %zu***)\n",
+            "(***truncated to %zu bytes from %"PRIu16"***)\n",
+            len, ntohs(oh->length));
+#endif
+    } else if (ntohs(oh->length) < len) {
+#ifdef _WIN32
+        ds_put_format(&string,
+                      "(***only uses %"PRIu16" bytes out of %lu***)\n",
                       ntohs(oh->length), len);
+#else
+        ds_put_format(&string,
+            "(***only uses %"PRIu16" bytes out of %zu***)\n",
+            ntohs(oh->length), len);
+#endif
     } else {
         enum ofperr error;
         enum ofpraw raw;

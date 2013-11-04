@@ -548,9 +548,15 @@ ofpbuf_to_string(const struct ofpbuf *b, size_t maxbytes)
     struct ds s;
 
     ds_init(&s);
-    ds_put_format(&s, "size=%zu, allocated=%zu, head=%zu, tail=%zu\n",
+#ifdef _WIN32
+    ds_put_format(&s, "size=%lu, allocated=%lu, head=%lu, tail=%lu\n",
                   b->size, b->allocated,
                   ofpbuf_headroom(b), ofpbuf_tailroom(b));
+#else
+    ds_put_format(&s, "size=%zu, allocated=%zu, head=%zu, tail=%zu\n",
+        b->size, b->allocated,
+        ofpbuf_headroom(b), ofpbuf_tailroom(b));
+#endif
     ds_put_hex_dump(&s, b->data, MIN(b->size, maxbytes), 0, false);
     return ds_cstr(&s);
 }

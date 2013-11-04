@@ -19,6 +19,7 @@
 
 #include <signal.h>
 #include <stdbool.h>
+#include <unistd.h>
 
 void signal_init(void);
 

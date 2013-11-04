@@ -92,17 +92,26 @@ worker_start(void)
     assert(client_sock < 0);
 
     /* Create non-blocking socket pair. */
+#ifndef _WIN32
     xsocketpair(AF_UNIX, SOCK_STREAM, 0, work_fds);
+#else
+    work_fds[0] = socket(AF_INET, SOCK_STREAM, 0);
+    work_fds[1] = socket(AF_INET, SOCK_STREAM, 0);
+#endif
     xset_nonblocking(work_fds[0]);
     xset_nonblocking(work_fds[1]);
 
+#ifndef _WIN32
     if (!fork_and_clean_up()) {
         /* In child (worker) process. */
         daemonize_post_detach();
         close(work_fds[0]);
+#endif
         worker_main(work_fds[1]);
         NOT_REACHED();
+#ifndef _WIN32
     }
+#endif
 
     /* In parent (main) process. */
     close(work_fds[1]);
@@ -409,7 +418,11 @@ rxbuf_run(struct rxbuf *rx, int sock, size_t header_len)
             retval = recv_data_and_fds(sock, rx->header.data, header_len,
                                        rx->fds, &rx->n_fds);
             if (retval <= 0) {
+#ifndef _WIN32
                 return retval ? -retval : EOF;
+#else
+                return retval ? -retval : EAGAIN;
+#endif
             }
             rx->header.size += retval;
         } else if (rx->header.size < header_len) {

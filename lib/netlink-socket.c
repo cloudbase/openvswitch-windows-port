@@ -36,6 +36,11 @@
 #include "util.h"
 #include "vlog.h"
 
+#ifdef _WIN32
+#include <MSWSock.h>
+#pragma comment (lib, "MsWSock.Lib")
+#endif
+
 VLOG_DEFINE_THIS_MODULE(netlink_socket);
 
 COVERAGE_DEFINE(netlink_overflow);
@@ -89,7 +94,11 @@ int
 nl_sock_create(int protocol, struct nl_sock **sockp)
 {
     struct nl_sock *sock;
+#ifndef _WIN32
     struct sockaddr_nl local, remote;
+#else
+    struct sockaddr_in local, remote;
+#endif
     socklen_t local_size;
     int rcvbuf;
     int retval = 0;
@@ -117,18 +126,33 @@ nl_sock_create(int protocol, struct nl_sock **sockp)
         return ENOMEM;
     }
 
+#ifdef _WIN32
+    //AS HACK should be Filter messages here
+    sock->fd = socket(AF_INET, SOCK_RAW, IPPROTO_ICMP);
+#else
     sock->fd = socket(AF_NETLINK, SOCK_RAW, protocol);
+#endif
     if (sock->fd < 0) {
         VLOG_ERR("fcntl: %s", strerror(errno));
         goto error;
     }
+#ifndef _WIN32
     sock->protocol = protocol;
+#else
+    protocol = IPPROTO_ICMP;
+    sock->protocol = protocol;
+#endif
     sock->dump = NULL;
     sock->next_seq = 1;
 
     rcvbuf = 1024 * 1024;
+#ifndef _WIN32
     if (setsockopt(sock->fd, SOL_SOCKET, SO_RCVBUFFORCE,
-                   &rcvbuf, sizeof rcvbuf)) {
+        &rcvbuf, sizeof rcvbuf)) {
+#else
+    if (setsockopt(sock->fd, SOL_SOCKET, SO_RCVBUF,
+        (char *)&rcvbuf, sizeof rcvbuf)) {
+#endif
         /* Only root can use SO_RCVBUFFORCE.  Everyone else gets EPERM.
          * Warn only if the failure is therefore unexpected. */
         if (errno != EPERM || !getuid()) {
@@ -146,14 +170,23 @@ nl_sock_create(int protocol, struct nl_sock **sockp)
 
     /* Connect to kernel (pid 0) as remote address. */
     memset(&remote, 0, sizeof remote);
+#ifndef _WIN32
     remote.nl_family = AF_NETLINK;
     remote.nl_pid = 0;
     if (connect(sock->fd, (struct sockaddr *) &remote, sizeof remote) < 0) {
+#else
+    struct sockaddr_in temp;
+    temp.sin_addr.s_addr = inet_addr("127.0.0.1");
+    temp.sin_family = AF_INET;
+    temp.sin_port = htons(5532);
+    if (connect(sock->fd, (struct sockaddr *) &temp, sizeof temp) < 0) {
+#endif
         VLOG_ERR("connect(0): %s", strerror(errno));
         goto error;
     }
 
     /* Obtain pid assigned by kernel. */
+#ifndef _WIN32
     local_size = sizeof local;
     if (getsockname(sock->fd, (struct sockaddr *) &local, &local_size) < 0) {
         VLOG_ERR("getsockname: %s", strerror(errno));
@@ -165,6 +198,22 @@ nl_sock_create(int protocol, struct nl_sock **sockp)
         goto error;
     }
     sock->pid = local.nl_pid;
+#else
+    local.sin_family = AF_INET;
+    local.sin_addr.s_addr = inet_addr("127.0.0.1");
+    temp.sin_port = htons(5533);
+    local_size = sizeof local;
+    if (getsockname(sock->fd, (struct sockaddr *) &local, &local_size) < 0) {
+        VLOG_ERR("getsockname: %s", strerror(errno));
+        goto error;
+    }
+    if (local_size < sizeof local || local.sin_family != AF_INET) {
+        VLOG_ERR("getsockname returned bad Netlink name");
+        retval = EINVAL;
+        goto error;
+    }
+    sock->pid = getpid();
+#endif
 
     *sockp = sock;
     return 0;
@@ -177,7 +226,11 @@ error:
         }
     }
     if (sock->fd >= 0) {
+#ifndef _WIN32
         close(sock->fd);
+#else
+        closesocket(sock->fd);
+#endif
     }
     free(sock);
     return retval;
@@ -200,7 +253,11 @@ nl_sock_destroy(struct nl_sock *sock)
         if (sock->dump) {
             sock->dump = NULL;
         } else {
+#ifndef _WIN32
             close(sock->fd);
+#else
+            closesocket(sock->fd);
+#endif
             free(sock);
         }
     }
@@ -350,7 +407,25 @@ nl_sock_recv__(struct nl_sock *sock, struct ofpbuf *buf, bool wait)
     msg.msg_iovlen = 2;
 
     do {
+#ifdef _WIN32
+        int bla1;
+        WSAOVERLAPPED RecvOverlapped;
+        DWORD Flags;
+        Flags = 0;
+        int ret = -1;
+        GUID WSARecvMsg_GUID = WSAID_WSARECVMSG;
+        int bla = WSAGetLastError();
+        WSABUF DataBuf;
+        char buffer[4096];
+        DataBuf.len = 4096;
+        DataBuf.buf = buffer;
+        bla1 = WSARecv(sock->fd, &DataBuf, 1, &retval, 0, &RecvOverlapped, NULL);
+        bla = WSAGetLastError();
+        int ceva;
+        ceva = 1;
+#else
         retval = recvmsg(sock->fd, &msg, wait ? 0 : MSG_DONTWAIT);
+#endif
     } while (retval < 0 && errno == EINTR);
 
     if (retval < 0) {
@@ -364,8 +439,13 @@ nl_sock_recv__(struct nl_sock *sock, struct ofpbuf *buf, bool wait)
     }
 
     if (msg.msg_flags & MSG_TRUNC) {
-        VLOG_ERR_RL(&rl, "truncated message (longer than %zu bytes)",
+#ifdef _WIN32
+        VLOG_ERR_RL(&rl, "truncated message (longer than %lu bytes)",
                     sizeof tail);
+#else
+        VLOG_ERR_RL(&rl, "truncated message (longer than %zu bytes)",
+            sizeof tail);
+#endif
         return E2BIG;
     }
 
@@ -373,8 +453,13 @@ nl_sock_recv__(struct nl_sock *sock, struct ofpbuf *buf, bool wait)
     if (retval < sizeof *nlmsghdr
         || nlmsghdr->nlmsg_len < sizeof *nlmsghdr
         || nlmsghdr->nlmsg_len > retval) {
-        VLOG_ERR_RL(&rl, "received invalid nlmsg (%zd bytes < %zu)",
+#ifdef _WIN32
+        VLOG_ERR_RL(&rl, "received invalid nlmsg (%zd bytes < %lu)",
                     retval, sizeof *nlmsghdr);
+#else
+        VLOG_ERR_RL(&rl, "received invalid nlmsg (%zd bytes < %zu)",
+            retval, sizeof *nlmsghdr);
+#endif
         return EPROTO;
     }
 
@@ -470,7 +555,23 @@ nl_sock_transact_multiple__(struct nl_sock *sock,
     msg.msg_iov = iovs;
     msg.msg_iovlen = n;
     do {
+#ifdef _WIN32
+        DWORD no_bytes;
+        WSAOVERLAPPED SendOverlapped;
+        SecureZeroMemory((PVOID) & SendOverlapped, sizeof (WSAOVERLAPPED));
+        SendOverlapped.hEvent = WSACreateEvent();
+        if (SendOverlapped.hEvent == NULL) {
+            error = -1;
+        }
+        u_long iMode = 1;
+        ioctlsocket(sock->fd, FIONBIO, &iMode);
+        error = WSASend(sock->fd, (LPWSABUF)msg.msg_iov, msg.msg_iovlen, &no_bytes, 0, &SendOverlapped, NULL);
+        int bla = WSAGetLastError();
+        int altceva;
+        altceva = 0;
+#else
         error = sendmsg(sock->fd, &msg, 0) < 0 ? errno : 0;
+#endif
     } while (error == EINTR);
 
     for (i = 0; i < n; i++) {

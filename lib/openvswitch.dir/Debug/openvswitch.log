@@ -1,0 +1,116 @@
+﻿Build started 04.11.2013 4:49:06.
+     1>Project "f:\_1\lib\openvswitch.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         E:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"E:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/INCLUDE" /I"E:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/ATLMFC/INCLUDE" /I"C:/Program Files (x86)/Windows Kits/8.1/include/shared" /I"C:/Program Files (x86)/Windows Kits/8.1/include/um" /I"C:/Program Files (x86)/Windows Kits/8.1/include/winrt" /IF:/_1/windows /IF:/_1/windows/thirdparty /IF:/_1 /IF:/_1/include /IF:/_1/lib /IF:/_1/ofproto /IF:/_1/ovsdb /IF:/_1/utilities /IF:/_1/tests /IF:/_1/generated /Zi /nologo /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"openvswitch.dir\Debug\\" /Fd"F:/_1/lib/Debug/openvswitch.pdb" /Gd /TC /analyze- /errorReport:prompt "socket-util.c"
+         socket-util.c
+         Exporting getopt library
+       Lib:
+         E:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"F:\_1\lib\Debug\openvswitch.lib" /NOLOGO openvswitch.dir\Debug\dhparams.obj
+         openvswitch.dir\Debug\dirs.obj
+         openvswitch.dir\Debug\aes128.obj
+         openvswitch.dir\Debug\autopath.obj
+         openvswitch.dir\Debug\backtrace.obj
+         openvswitch.dir\Debug\bitmap.obj
+         openvswitch.dir\Debug\bond.obj
+         openvswitch.dir\Debug\bundle.obj
+         openvswitch.dir\Debug\byteq.obj
+         openvswitch.dir\Debug\cfm.obj
+         openvswitch.dir\Debug\classifier.obj
+         "openvswitch.dir\Debug\command-line.obj"
+         openvswitch.dir\Debug\coverage.obj
+         openvswitch.dir\Debug\csum.obj
+         openvswitch.dir\Debug\daemon.obj
+         "openvswitch.dir\Debug\dpif-linux.obj"
+         "openvswitch.dir\Debug\dpif-netdev.obj"
+         openvswitch.dir\Debug\dpif.obj
+         openvswitch.dir\Debug\dummy.obj
+         "openvswitch.dir\Debug\dynamic-string.obj"
+         openvswitch.dir\Debug\entropy.obj
+         "openvswitch.dir\Debug\fatal-signal.obj"
+         openvswitch.dir\Debug\flow.obj
+         openvswitch.dir\Debug\hash.obj
+         openvswitch.dir\Debug\heap.obj
+         openvswitch.dir\Debug\hmap.obj
+         openvswitch.dir\Debug\hmapx.obj
+         openvswitch.dir\Debug\json.obj
+         openvswitch.dir\Debug\jsonrpc.obj
+         openvswitch.dir\Debug\lacp.obj
+         "openvswitch.dir\Debug\leak-checker.obj"
+         openvswitch.dir\Debug\learn.obj
+         "openvswitch.dir\Debug\learning-switch.obj"
+         openvswitch.dir\Debug\list.obj
+         openvswitch.dir\Debug\lockfile.obj
+         "openvswitch.dir\Debug\mac-learning.obj"
+         openvswitch.dir\Debug\match.obj
+         openvswitch.dir\Debug\memory.obj
+         "openvswitch.dir\Debug\meta-flow.obj"
+         openvswitch.dir\Debug\multipath.obj
+         "openvswitch.dir\Debug\netdev-dummy.obj"
+         "openvswitch.dir\Debug\netdev-linux.obj"
+         "openvswitch.dir\Debug\netdev-vport.obj"
+         openvswitch.dir\Debug\netdev.obj
+         "openvswitch.dir\Debug\netlink-notifier.obj"
+         "openvswitch.dir\Debug\netlink-socket.obj"
+         openvswitch.dir\Debug\netlink.obj
+         "openvswitch.dir\Debug\nx-match.obj"
+         "openvswitch.dir\Debug\odp-util.obj"
+         "openvswitch.dir\Debug\ofp-actions.obj"
+         "openvswitch.dir\Debug\ofp-errors.obj"
+         "openvswitch.dir\Debug\ofp-msgs.obj"
+         "openvswitch.dir\Debug\ofp-parse.obj"
+         "openvswitch.dir\Debug\ofp-print.obj"
+         "openvswitch.dir\Debug\ofp-util.obj"
+         openvswitch.dir\Debug\ofpbuf.obj
+         "openvswitch.dir\Debug\ovsdb-data.obj"
+         "openvswitch.dir\Debug\ovsdb-error.obj"
+         "openvswitch.dir\Debug\ovsdb-idl.obj"
+         "openvswitch.dir\Debug\ovsdb-parser.obj"
+         "openvswitch.dir\Debug\ovsdb-types.obj"
+         openvswitch.dir\Debug\packets.obj
+         openvswitch.dir\Debug\pcap.obj
+         "openvswitch.dir\Debug\poll-loop.obj"
+         openvswitch.dir\Debug\process.obj
+         openvswitch.dir\Debug\random.obj
+         openvswitch.dir\Debug\rconn.obj
+         openvswitch.dir\Debug\reconnect.obj
+         "openvswitch.dir\Debug\route-table.obj"
+         "openvswitch.dir\Debug\rtnetlink-link.obj"
+         openvswitch.dir\Debug\sha1.obj
+         openvswitch.dir\Debug\shash.obj
+         openvswitch.dir\Debug\signals.obj
+         openvswitch.dir\Debug\simap.obj
+         openvswitch.dir\Debug\smap.obj
+         "openvswitch.dir\Debug\socket-util.obj"
+         openvswitch.dir\Debug\sort.obj
+         openvswitch.dir\Debug\sset.obj
+         openvswitch.dir\Debug\stp.obj
+         "openvswitch.dir\Debug\stream-fd.obj"
+         "openvswitch.dir\Debug\stream-ssl.obj"
+         "openvswitch.dir\Debug\stream-tcp.obj"
+         "openvswitch.dir\Debug\stream-unix.obj"
+         openvswitch.dir\Debug\stream.obj
+         openvswitch.dir\Debug\stress.obj
+         openvswitch.dir\Debug\string.obj
+         openvswitch.dir\Debug\svec.obj
+         openvswitch.dir\Debug\table.obj
+         openvswitch.dir\Debug\tag.obj
+         openvswitch.dir\Debug\timer.obj
+         openvswitch.dir\Debug\timeval.obj
+         "openvswitch.dir\Debug\token-bucket.obj"
+         openvswitch.dir\Debug\unicode.obj
+         openvswitch.dir\Debug\unixctl.obj
+         openvswitch.dir\Debug\util.obj
+         openvswitch.dir\Debug\uuid.obj
+         "openvswitch.dir\Debug\vconn-stream.obj"
+         openvswitch.dir\Debug\vconn.obj
+         "openvswitch.dir\Debug\vlan-bitmap.obj"
+         openvswitch.dir\Debug\vlandev.obj
+         openvswitch.dir\Debug\vlog.obj
+         "openvswitch.dir\Debug\vswitch-idl.obj"
+         openvswitch.dir\Debug\worker.obj
+         openvswitch.vcxproj -> F:\_1\lib\Debug\openvswitch.lib
+     1>Done Building Project "f:\_1\lib\openvswitch.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.94

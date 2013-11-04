@@ -634,12 +634,20 @@ abs_file_name(const char *dir, const char *file_name)
     if (file_name[0] == '/') {
         return xstrdup(file_name);
     } else if (dir && dir[0]) {
+#ifndef _WIN32
         char *separator = dir[strlen(dir) - 1] == '/' ? "" : "/";
+#else
+        char *separator = dir[strlen(dir) - 1] == '\\' ? "" : "\\";
+#endif
         return xasprintf("%s%s%s", dir, separator, file_name);
     } else {
         char *cwd = get_cwd();
         if (cwd) {
+#ifndef _WIN32
             char *abs_name = xasprintf("%s/%s", cwd, file_name);
+#else
+            char *abs_name = xasprintf("%s\\%s", cwd, file_name);
+#endif
             free(cwd);
             return abs_name;
         } else {
@@ -654,6 +662,7 @@ abs_file_name(const char *dir, const char *file_name)
 char *
 xreadlink(const char *filename)
 {
+#ifndef _WIN32
     size_t size;
 
     for (size = 64; ; size *= 2) {
@@ -672,6 +681,12 @@ xreadlink(const char *filename)
             return NULL;
         }
     }
+#else
+    if (filename)
+        return filename;
+    else
+        return NULL;
+#endif
 }
 
 /* Returns a version of 'filename' with symlinks in the final component
@@ -796,9 +811,11 @@ log_2_ceil(uint32_t n)
 #elif __GNUC__ >= 4 && UINT_MAX == UINT32_MAX
 /* Defined inline in util.h. */
 #else
+#ifndef _WIN32
 static int
 raw_ctz(uint32_t n)
 {
+
     unsigned int k;
     int count = 31;
 
@@ -817,6 +834,7 @@ raw_ctz(uint32_t n)
 
     return count;
 }
+#endif
 #endif
 
 /* Returns the number of 1-bits in 'x', between 0 and 32 inclusive. */

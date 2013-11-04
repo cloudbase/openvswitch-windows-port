@@ -460,7 +460,11 @@ ssl_connect(struct stream *stream)
 
                 interpret_ssl_error((sslv->type == CLIENT ? "SSL_connect"
                                      : "SSL_accept"), retval, error, &unused);
+#ifndef _WIN32
                 shutdown(sslv->fd, SHUT_RDWR);
+#else
+                closesocket(sslv->fd);
+#endif
                 stream_report_content(sslv->head, sslv->n_head, STREAM_SSL,
                                       THIS_MODULE, stream_get_name(stream));
                 return EPROTO;
@@ -1248,9 +1252,15 @@ stream_ssl_set_ca_cert_file__(const char *file_name,
         for (i = 0; i < n_certs; i++) {
             /* SSL_CTX_add_client_CA makes a copy of the relevant data. */
             if (SSL_CTX_add_client_CA(ctx, certs[i]) != 1) {
-                VLOG_ERR("failed to add client certificate %zu from %s: %s",
+#ifdef _WIN32
+                VLOG_ERR("failed to add client certificate %lu from %s: %s",
                          i, file_name,
                          ERR_error_string(ERR_get_error(), NULL));
+#else
+                VLOG_ERR("failed to add client certificate %zu from %s: %s",
+                    i, file_name,
+                    ERR_error_string(ERR_get_error(), NULL));
+#endif
             } else {
                 log_ca_cert(file_name, certs[i]);
             }
@@ -1370,10 +1380,17 @@ ssl_protocol_cb(int write_p, int version OVS_UNUSED, int content_type,
         ds_put_format(&details, "type %d", content_type);
     }
 
-    VLOG_DBG("%s%u%s%s %s (%zu bytes)",
+#ifdef _WIN32
+    VLOG_DBG("%s%u%s%s %s (%lu bytes)",
              sslv->type == CLIENT ? "client" : "server",
              sslv->session_nr, write_p ? "-->" : "<--",
              stream_get_name(&sslv->stream), ds_cstr(&details), len);
+#else
+    VLOG_DBG("%s%u%s%s %s (%zu bytes)",
+        sslv->type == CLIENT ? "client" : "server",
+        sslv->session_nr, write_p ? "-->" : "<--",
+        stream_get_name(&sslv->stream), ds_cstr(&details), len);
+#endif
 
     ds_destroy(&details);
 }

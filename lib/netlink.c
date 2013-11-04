@@ -591,7 +591,11 @@ nl_attr_get_nested(const struct nlattr *nla, struct ofpbuf *nested)
 
 /* Default minimum and maximum payload sizes for each type of attribute. */
 static const size_t attr_len_range[][2] = {
+#ifndef _WIN32
     [0 ... N_NL_ATTR_TYPES - 1] = { 0, SIZE_MAX },
+#else
+    [N_NL_ATTR_TYPES - 1] = { 0, SIZE_MAX },
+#endif
     [NL_A_U8] = { 1, 1 },
     [NL_A_U16] = { 2, 2 },
     [NL_A_U32] = { 4, 4 },
@@ -626,8 +630,13 @@ nl_attr_validate(const struct nlattr *nla, const struct nl_policy *policy)
     /* Verify length. */
     len = nl_attr_get_size(nla);
     if (len < min_len || len > max_len) {
+#ifdef _WIN32
+        VLOG_DBG_RL(&rl, "attr %"PRIu16" length %lu not in "
+                    "allowed range %lu...%lu", type, len, min_len, max_len);
+#else
         VLOG_DBG_RL(&rl, "attr %"PRIu16" length %zu not in "
-                    "allowed range %zu...%zu", type, len, min_len, max_len);
+            "allowed range %zu...%zu", type, len, min_len, max_len);
+#endif
         return false;
     }
 
@@ -693,7 +702,11 @@ nl_policy_parse(const struct ofpbuf *msg, size_t nla_offset,
     for (i = 0; i < n_attrs; i++) {
         const struct nl_policy *e = &policy[i];
         if (!e->optional && e->type != NL_A_NO_ATTR && !attrs[i]) {
+#ifdef _WIN32
+            VLOG_DBG_RL(&rl, "required attr %lu missing", i);
+#else
             VLOG_DBG_RL(&rl, "required attr %zu missing", i);
+#endif
             return false;
         }
     }

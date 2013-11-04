@@ -700,12 +700,20 @@ check_string_constraints(const char *s,
     if (n_chars < c->minLen) {
         return ovsdb_error(
             "constraint violation",
+#ifdef _WIN32
+            "\"%s\" length %lu is less than minimum allowed "
+#else
             "\"%s\" length %zu is less than minimum allowed "
+#endif
             "length %u", s, n_chars, c->minLen);
     } else if (n_chars > c->maxLen) {
         return ovsdb_error(
             "constraint violation",
+#ifdef _WIN32
+            "\"%s\" length %lu is greater than maximum allowed "
+#else
             "\"%s\" length %zu is greater than maximum allowed "
+#endif
             "length %u", s, n_chars, c->maxLen);
     }
 
@@ -1183,7 +1191,11 @@ ovsdb_datum_from_json__(struct ovsdb_datum *datum,
         n = inner->u.array.n;
         if (n < type->n_min || n > type->n_max) {
             return ovsdb_syntax_error(json, NULL, "%s must have %u to "
-                                      "%u members but %zu are present",
+#ifdef _WIN32
+                                      "%u members but %lu are present",
+#else
+                "%u members but %zu are present",
+#endif
                                       class, type->n_min, type->n_max, n);
         }
 

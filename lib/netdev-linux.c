@@ -966,7 +966,11 @@ netdev_linux_send(struct netdev *netdev_, const void *data, size_t size)
             msg.msg_controllen = 0;
             msg.msg_flags = 0;
 
+#ifdef _WIN32
+            WSASend(sock, (LPWSABUF)msg.msg_iov, msg.msg_iovlen, &retval, 0, NULL, NULL);
+#else
             retval = sendmsg(sock, &msg, 0);
+#endif
         } else {
             /* Use the netdev's own fd to send to this device.  This is
              * essential for tap devices, because packets sent to a tap device
@@ -989,8 +993,13 @@ netdev_linux_send(struct netdev *netdev_, const void *data, size_t size)
             }
             return errno;
         } else if (retval != size) {
+#ifdef _WIN32
             VLOG_WARN_RL(&rl, "sent partial Ethernet packet (%zd bytes of "
-                         "%zu) on %s", retval, size, netdev_get_name(netdev_));
+                         "%lu) on %s", retval, size, netdev_get_name(netdev_));
+#else
+            VLOG_WARN_RL(&rl, "sent partial Ethernet packet (%zd bytes of "
+                "%zu) on %s", retval, size, netdev_get_name(netdev_));
+#endif
             return EMSGSIZE;
         } else {
             return 0;

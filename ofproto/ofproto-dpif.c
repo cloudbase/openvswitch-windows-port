@@ -6682,7 +6682,11 @@ trace_format_regs(struct ds *result, int level, const char *title,
     ds_put_char_multiple(result, '\t', level);
     ds_put_format(result, "%s:", title);
     for (i = 0; i < FLOW_N_REGS; i++) {
+#ifdef _WIN32
+        ds_put_format(result, " reg%lu=0x%"PRIx32, i, trace->flow.regs[i]);
+#else
         ds_put_format(result, " reg%zu=0x%"PRIx32, i, trace->flow.regs[i]);
+#endif
     }
     ds_put_char(result, '\n');
 }

@@ -85,7 +85,9 @@ signal_register(int signr)
     assert(signr >= 1 && signr < N_SIGNALS);
     memset(&sa, 0, sizeof sa);
     sa.sa_handler = signal_handler;
+#ifndef _WIN32
     sigemptyset(&sa.sa_mask);
+#endif
     sa.sa_flags = SA_RESTART;
     xsigaction(signr, &sa, &s->saved_sa);
 
@@ -116,7 +118,7 @@ signal_poll(struct signal *s)
     }
     return false;
 }
-
+ 
 /* Causes the next call to poll_block() to wake up when signal_poll(s) would
  * return true. */
 void
@@ -149,7 +151,9 @@ signal_name(int signum)
 {
     const char *name = NULL;
 #ifdef HAVE_STRSIGNAL
+#ifndef _WIN32
     name = strsignal(signum);
+#endif
 #endif
     if (!name) {
         static char buffer[7 + INT_STRLEN(int) + 1];

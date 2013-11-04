@@ -19,6 +19,8 @@
 
 #include <stdbool.h>
 #include <sys/types.h>
+#include <config.h>
+#include <unistd.h>
 
 struct process;
 void process_init(void);

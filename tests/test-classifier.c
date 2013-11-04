@@ -1275,8 +1275,8 @@ static const struct command commands[] = {
 
     /* Miniflow and minimask tests. */
     {"miniflow", 0, 0, test_miniflow},
-	{"minimask_has_extra", 0, 0, test_minimask_has_extra},
-	{"minimask_combine", 0, 0, test_minimask_combine},
+    {"minimask_has_extra", 0, 0, test_minimask_has_extra},
+    {"minimask_combine", 0, 0, test_minimask_combine},
 
     {NULL, 0, 0, NULL},
 };

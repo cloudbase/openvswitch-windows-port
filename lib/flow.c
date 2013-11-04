@@ -147,15 +147,27 @@ parse_ipv6(struct ofpbuf *packet, struct flow *flow)
         return EINVAL;
     }
 
-    nexthdr = nh->ip6_nxt;
+#ifndef _WIN32
+    nexthdr = nh->ip6_nxt; 
+#else
+    nh->ip6_ctlun.ip6_un1.ip6_un1_nxt;
+#endif
 
     memcpy(&flow->ipv6_src, &nh->ip6_src, sizeof flow->ipv6_src);
     memcpy(&flow->ipv6_dst, &nh->ip6_dst, sizeof flow->ipv6_dst);
 
+#ifndef _WIN32
     tc_flow = get_16aligned_be32(&nh->ip6_flow);
+#else
+    tc_flow = get_16aligned_be32(&nh->ip6_ctlun.ip6_un1.ip6_un1_flow);
+#endif
     flow->nw_tos = ntohl(tc_flow) >> 20;
     flow->ipv6_label = tc_flow & htonl(IPV6_LABEL_MASK);
+#ifndef _WIN32
     flow->nw_ttl = nh->ip6_hlim;
+#else
+    flow->nw_ttl = nh->ip6_ctlun.ip6_un1.ip6_un1_hlim;
+#endif
     flow->nw_proto = IPPROTO_NONE;
 
     while (1) {

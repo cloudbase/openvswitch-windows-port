@@ -63,8 +63,13 @@ multipath_from_openflow(const struct nx_action_multipath *nam,
         VLOG_WARN_RL(&rl, "unsupported algorithm %d", (int) mp->algorithm);
         return OFPERR_OFPBAC_BAD_ARGUMENT;
     } else if (mp->dst.n_bits < min_n_bits) {
-        VLOG_WARN_RL(&rl, "multipath action requires at least %zu bits for "
+#ifdef _WIN32
+        VLOG_WARN_RL(&rl, "multipath action requires at least %lu bits for "
                      "%"PRIu32" links", min_n_bits, n_links);
+#else
+        VLOG_WARN_RL(&rl, "multipath action requires at least %zu bits for "
+            "%"PRIu32" links", min_n_bits, n_links);
+#endif
         return OFPERR_OFPBAC_BAD_ARGUMENT;
     }
 

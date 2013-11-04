@@ -50,8 +50,13 @@
 #include "timeval.h"
 #include "util.h"
 #include "vlog.h"
+#ifdef _WIN32
+#define NUMBER 28  
+#else
+#define NUMBER
+#endif
 
-static struct command all_commands[];
+static struct command all_commands[NUMBER];
 
 static void usage(void) NO_RETURN;
 static void parse_options(int argc, char *argv[]);
@@ -937,7 +942,11 @@ do_execute_mutations(int argc OVS_UNUSED, char *argv[])
             row = ovsdb_row_clone(rows[j]);
             error = ovsdb_mutation_set_execute(row, &sets[i]);
 
+#ifdef _WIN32
+            printf("row %lu: ", j);
+#else
             printf("row %zu: ", j);
+#endif
             if (error) {
                 print_and_free_ovsdb_error(error);
             } else {
@@ -1672,7 +1681,11 @@ parse_uuids(const struct json *json, struct ovsdb_symbol_table *symtab,
     struct uuid uuid;
 
     if (json->type == JSON_STRING && uuid_from_string(&uuid, json->u.string)) {
+#ifdef _WIN32
+        char *name = xasprintf("#%lu#", *n);
+#else
         char *name = xasprintf("#%zu#", *n);
+#endif
         fprintf(stderr, "%s = "UUID_FMT"\n", name, UUID_ARGS(&uuid));
         ovsdb_symbol_table_put(symtab, name, &uuid, false);
         free(name);

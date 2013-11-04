@@ -12,9 +12,10 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ */ 
 
 #include <config.h>
+
 #include "socket-util.h"
 #include <arpa/inet.h>
 #include <assert.h>
@@ -47,6 +48,14 @@
 #include "netlink-socket.h"
 #endif
 
+#ifdef _WIN32
+#include <sys/wait.h>
+#include <mswsock.h>
+#include <windef.h>
+#pragma comment (lib, "Mswsock.lib")
+#pragma comment (lib, "Ws2_32.lib")
+#endif
+
 VLOG_DEFINE_THIS_MODULE(socket_util);
 
 /* #ifdefs make it a pain to maintain code: you have to try to build both ways.
@@ -60,6 +69,10 @@ VLOG_DEFINE_THIS_MODULE(socket_util);
 #define O_DIRECTORY 0
 #endif
 
+#ifdef _WIN32
+#define LINUX_DATAPATH 0
+#endif
+
 static int getsockopt_int(int fd, int level, int option, const char *optname,
                           int *valuep);
 
@@ -68,6 +81,7 @@ static int getsockopt_int(int fd, int level, int option, const char *optname,
 int
 set_nonblocking(int fd)
 {
+#ifndef _WIN32
     int flags = fcntl(fd, F_GETFL, 0);
     if (flags != -1) {
         if (fcntl(fd, F_SETFL, flags | O_NONBLOCK) != -1) {
@@ -80,6 +94,16 @@ set_nonblocking(int fd)
         VLOG_ERR("fcntl(F_GETFL) failed: %s", strerror(errno));
         return errno;
     }
+#else
+    int flags = 0;
+    u_long iMode = 1;
+    int iResult;
+    iResult = ioctlsocket(fd, FIONBIO, &iMode);
+	int bla = WSAGetLastError();
+	if (bla == WSAENOTSOCK)
+		return 0;
+    return iResult;
+#endif
 }
 
 void
@@ -187,7 +211,7 @@ int
 lookup_hostname(const char *host_name, struct in_addr *addr)
 {
     struct hostent *h;
-
+    
     if (inet_aton(host_name, addr)) {
         return 0;
     }
@@ -333,6 +357,9 @@ make_sockaddr_un(const char *name, struct sockaddr_un *un, socklen_t *un_len,
     if (strlen(name) > MAX_UN_LEN) {
         static struct vlog_rate_limit rl = VLOG_RATE_LIMIT_INIT(1, 1);
 
+#ifdef _WIN32
+#define LINUX_DATAPATH 0
+#endif
         if (LINUX_DATAPATH) {
             /* 'name' is too long to fit in a sockaddr_un, but we have a
              * workaround for that on Linux: shorten it by opening a file
@@ -371,6 +398,12 @@ make_sockaddr_un(const char *name, struct sockaddr_un *un, socklen_t *un_len,
             /* 'name' is too long and we have no workaround. */
             VLOG_WARN_RL(&rl, "Unix socket name %s is longer than maximum "
                          "%d bytes", name, MAX_UN_LEN);
+#ifdef _WIN32
+            un->sun_family = AF_INET;
+            ovs_strzcpy(un->sun_path, "127.0.0.1", sizeof un->sun_path);
+            un->sun_len = strlen(un->sun_path) + 1;
+            return 0;
+#endif
         }
 
         return ENAMETOOLONG;
@@ -386,7 +419,15 @@ bind_unix_socket(int fd, struct sockaddr *sun, socklen_t sun_len)
 {
     /* According to _Unix Network Programming_, umask should affect bind(). */
     mode_t old_umask = umask(0077);
+#ifndef _WIN32
     int error = bind(fd, sun, sun_len) ? errno : 0;
+#else
+    struct  sockaddr_in service;
+    service.sin_family = AF_INET;
+    service.sin_addr.s_addr = inet_addr("127.0.0.1");
+    service.sin_port = 0; //random
+    int error = bind(fd, (SOCKADDR *)&service, sizeof(service));
+#endif
     umask(old_umask);
     return error;
 }
@@ -404,7 +445,11 @@ make_unix_socket(int style, bool nonblock,
     int error;
     int fd;
 
+#ifndef _WIN32
     fd = socket(PF_UNIX, style, 0);
+#else
+    fd = socket(PF_INET, style, 0);
+#endif
     if (fd < 0) {
         return -errno;
     }
@@ -415,6 +460,7 @@ make_unix_socket(int style, bool nonblock,
      * if a backlog of un-accepted connections has built up in the kernel.)  */
     if (nonblock) {
         int flags = fcntl(fd, F_GETFL, 0);
+#ifndef _WIN32
         if (flags == -1) {
             error = errno;
             goto error;
@@ -423,6 +469,9 @@ make_unix_socket(int style, bool nonblock,
             error = errno;
             goto error;
         }
+#else
+        set_nonblocking(fd);
+#endif
     }
 
     if (bind_path) {
@@ -475,7 +524,11 @@ error:
     if (bind_path) {
         fatal_signal_unlink_file_now(bind_path);
     }
+#ifndef _WIN32
     close(fd);
+#else
+    closesocket(fd);
+#endif
     return -error;
 }
 
@@ -601,9 +654,14 @@ inet_open_active(int style, const char *target, uint16_t default_port,
 
     /* Connect. */
     error = connect(fd, (struct sockaddr *) &sin, sizeof sin) == 0 ? 0 : errno;
+#ifdef _WIN32
+    int bla = WSAGetLastError();
+    if (bla == WSAEWOULDBLOCK)
+        error = EAGAIN;
     if (error == EINPROGRESS) {
         error = EAGAIN;
     }
+#endif
 
 exit:
     if (!error || error == EAGAIN) {
@@ -611,7 +669,11 @@ exit:
             *sinp = sin;
         }
     } else if (fd >= 0) {
+#ifndef _WIN32
         close(fd);
+#else
+        closesocket(fd);
+#endif
         fd = -1;
     }
     *fdp = fd;
@@ -761,7 +823,11 @@ inet_open_passive(int style, const char *target, int default_port,
     return fd;
 
 error:
+#ifndef _WIN32
     close(fd);
+#else
+    closesocket(fd);
+#endif
     return -error;
 }
 
@@ -922,8 +988,13 @@ getsockopt_int(int fd, int level, int option, const char *optname, int *valuep)
         VLOG_ERR_RL(&rl, "getsockopt(%s): %s", optname, strerror(error));
     } else if (len != sizeof value) {
         error = EINVAL;
-        VLOG_ERR_RL(&rl, "getsockopt(%s): value is %u bytes (expected %zu)",
+#ifdef _WIN32
+        VLOG_ERR_RL(&rl, "getsockopt(%s): value is %u bytes (expected %lu)",
                     optname, (unsigned int) len, sizeof value);
+#else
+        VLOG_ERR_RL(&rl, "getsockopt(%s): value is %u bytes (expected %zu)",
+            optname, (unsigned int) len, sizeof value);
+#endif
     } else {
         error = 0;
     }
@@ -932,9 +1003,15 @@ getsockopt_int(int fd, int level, int option, const char *optname, int *valuep)
     return error;
 }
 
+#if defined(_WIN32)
+static void
+describe_sockaddr(struct ds *string, int fd,
+                  int(WINAPI *getaddr)(int, struct sockaddr *, socklen_t *))
+#else
 static void
 describe_sockaddr(struct ds *string, int fd,
                   int (*getaddr)(int, struct sockaddr *, socklen_t *))
+#endif
 {
     struct sockaddr_storage ss;
     socklen_t len = sizeof ss;
@@ -1017,6 +1094,9 @@ describe_sockaddr(struct ds *string, int fd,
 }
 
 
+#ifdef _WIN32
+    #undef LINUX_DATAPATH
+#endif
 #ifdef LINUX_DATAPATH
 static void
 put_fd_filename(struct ds *string, int fd)
@@ -1067,6 +1147,9 @@ describe_fd(int fd)
     }
     return ds_steal_cstr(&string);
 }
+#ifdef _WIN32
+    #define LINUX_DATAPATH
+#endif
 
 /* Returns the total of the 'iov_len' members of the 'n_iovs' in 'iovs'.
  * The caller must ensure that the total does not exceed SIZE_MAX. */
@@ -1120,7 +1203,11 @@ send_iovec_and_fds(int sock,
         cmsg.cm.cmsg_len = CMSG_LEN(n_fds * sizeof *fds);
         cmsg.cm.cmsg_level = SOL_SOCKET;
         cmsg.cm.cmsg_type = SCM_RIGHTS;
+#ifdef _WIN32
+        memcpy(WSA_CMSG_DATA(&cmsg.cm), fds, n_fds * sizeof *fds);
+#else
         memcpy(CMSG_DATA(&cmsg.cm), fds, n_fds * sizeof *fds);
+#endif
 
         msg.msg_name = NULL;
         msg.msg_namelen = 0;
@@ -1130,9 +1217,23 @@ send_iovec_and_fds(int sock,
         msg.msg_controllen = CMSG_SPACE(n_fds * sizeof *fds);
         msg.msg_flags = 0;
 
+#ifdef _WIN32
+        int val;
+        DWORD no_bytes;
+        val = WSASend(sock, (LPWSABUF)msg.msg_iov, msg.msg_iovlen, &no_bytes, 0, NULL, NULL);
+        return no_bytes;
+#else
         return sendmsg(sock, &msg, 0);
+#endif
     } else {
+#ifdef _WIN32
+        int val;
+        DWORD no_bytes;
+        val = WSASend(sock, (LPWSABUF)iovs, n_iovs, &no_bytes, 0, NULL, NULL);
+        return no_bytes;
+#else
         return writev(sock, iovs, n_iovs);
+#endif
     }
 }
 
@@ -1164,7 +1265,11 @@ send_iovec_and_fds_fully(int sock,
         } else if (!*bytes_sent) {
             retval = send_iovec_and_fds(sock, iovs, n_iovs, fds, n_fds);
         } else {
+#ifdef _WIN32
+            WSASend(sock, (LPWSABUF)iovs, n_iovs, &retval, 0, NULL, NULL);
+#else
             retval = writev(sock, iovs, n_iovs);
+#endif
         }
 
         if (retval > 0) {
@@ -1256,6 +1361,7 @@ recv_data_and_fds(int sock,
     size_t i;
 
     *n_fdsp = 0;
+    int erno;
 
     do {
         struct iovec iov;
@@ -1271,10 +1377,35 @@ recv_data_and_fds(int sock,
         msg.msg_controllen = sizeof cmsg.control;
         msg.msg_flags = 0;
 
+#ifdef _WIN32
+        WSAOVERLAPPED RecvOverlapped;
+        int ret = -1;
+        GUID WSARecvMsg_GUID = WSAID_WSARECVMSG;
+        LPFN_WSARECVMSG WSARecvMsg;
+        DWORD NumberOfBytes;
+        int nResult;
+        nResult = WSAIoctl(sock, SIO_GET_EXTENSION_FUNCTION_POINTER,
+            &WSARecvMsg_GUID, sizeof WSARecvMsg_GUID,
+            &WSARecvMsg, sizeof WSARecvMsg,
+            &NumberOfBytes, NULL, NULL);
+        int bla = WSAGetLastError();
+        int rc = WSARecvMsg(sock, msg.msg_iov, &retval, &RecvOverlapped, NULL);
+        bla = WSAGetLastError();
+        if (retval < 0)
+        {
+            retval = -1;
+            erno = EAGAIN;
+        }
+#else
         retval = recvmsg(sock, &msg, 0);
+#endif
     } while (retval < 0 && errno == EINTR);
     if (retval <= 0) {
+#ifdef _WIN32
+        return retval < 0 ? -erno : 0;
+#else
         return retval < 0 ? -errno : 0;
+#endif
     }
 
     for (p = CMSG_FIRSTHDR(&msg); p; p = CMSG_NXTHDR(&msg, p)) {
@@ -1287,12 +1418,21 @@ recv_data_and_fds(int sock,
             goto error;
         } else {
             size_t n_fds = (p->cmsg_len - CMSG_LEN(0)) / sizeof *fds;
+#ifdef _WIN32
+            const int *fds_data = (const int *) WSA_CMSG_DATA(p);
+#else
             const int *fds_data = (const int *) CMSG_DATA(p);
+#endif
 
             assert(n_fds > 0);
             if (n_fds > SOUTIL_MAX_FDS) {
+#ifdef _WIN32
+                VLOG_ERR("%lu fds received but only %d supported",
+                    n_fds, SOUTIL_MAX_FDS);
+#else
                 VLOG_ERR("%zu fds received but only %d supported",
-                         n_fds, SOUTIL_MAX_FDS);
+                    n_fds, SOUTIL_MAX_FDS);
+#endif
                 for (i = 0; i < n_fds; i++) {
                     close(fds_data[i]);
                 }

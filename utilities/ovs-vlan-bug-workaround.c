@@ -40,6 +40,22 @@ static void parse_options(int argc, char *argv[]);
 int
 main(int argc, char *argv[])
 {
+#ifdef _WIN32
+    WORD wVersionRequested;
+    WSADATA wsaData;
+    int err;
+
+    /* Use the MAKEWORD(lowbyte, highbyte) macro declared in Windef.h */
+    wVersionRequested = MAKEWORD(2, 2);
+
+    err = WSAStartup(wVersionRequested, &wsaData);
+    if (err != 0) {
+        /* Tell the user that we could not find a usable */
+        /* Winsock DLL.                                  */
+        printf("WSAStartup failed with error: %d\n", err);
+        return 1;
+    }
+#endif
     struct vlan_ioctl_args vlan_args;
     const char *netdev, *setting;
     int fd;

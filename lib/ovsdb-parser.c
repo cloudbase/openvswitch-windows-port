@@ -142,7 +142,11 @@ ovsdb_parser_finish(struct ovsdb_parser *parser)
                     if (n_unused > 1) {
                         ovsdb_parser_raise_error(
                             parser,
+#ifdef _WIN32
+                            "Member '%s' and %lu other member%s "
+#else
                             "Member '%s' and %zu other member%s "
+#endif
                             "are present but not allowed here.",
                             node->name, n_unused - 1, n_unused > 2 ? "s" : "");
                     } else {

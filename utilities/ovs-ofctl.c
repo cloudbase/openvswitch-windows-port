@@ -95,8 +95,13 @@ struct sort_criterion {
 };
 static struct sort_criterion *criteria;
 static size_t n_criteria, allocated_criteria;
+#ifdef _WIN32
+#define NUMBER 38
+#else
+#define NUMBER
+#endif
 
-static const struct command all_commands[];
+static const struct command all_commands[NUMBER];
 
 static void usage(void) NO_RETURN;
 static void parse_options(int argc, char *argv[]);
@@ -108,6 +113,22 @@ static bool recv_flow_stats_reply(struct vconn *, ovs_be32 send_xid,
 int
 main(int argc, char *argv[])
 {
+#ifdef _WIN32
+    WORD wVersionRequested;
+    WSADATA wsaData;
+    int err;
+
+    /* Use the MAKEWORD(lowbyte, highbyte) macro declared in Windef.h */
+    wVersionRequested = MAKEWORD(2, 2);
+
+    err = WSAStartup(wVersionRequested, &wsaData);
+    if (err != 0) {
+        /* Tell the user that we could not find a usable */
+        /* Winsock DLL.                                  */
+        printf("WSAStartup failed with error: %d\n", err);
+        return 1;
+    }
+#endif
     set_program_name(argv[0]);
     parse_options(argc, argv);
     signal(SIGPIPE, SIG_IGN);
@@ -1601,7 +1622,11 @@ ofctl_ping(int argc, char *argv[])
 
     payload = argc > 2 ? atoi(argv[2]) : 64;
     if (payload > max_payload) {
+#ifdef _WIN32
+        ovs_fatal(0, "payload must be between 0 and %lu bytes", max_payload);
+#else
         ovs_fatal(0, "payload must be between 0 and %zu bytes", max_payload);
+#endif
     }
 
     open_vconn(argv[1], &vconn);
@@ -1629,10 +1654,17 @@ ofctl_ping(int argc, char *argv[])
             printf("Reply:\n");
             ofp_print(stdout, reply, reply->size, verbosity + 2);
         }
-        printf("%zu bytes from %s: xid=%08"PRIx32" time=%.1f ms\n",
+#ifdef _WIN32
+        printf("%lu bytes from %s: xid=%08"PRIx32" time=%.1f ms\n",
                reply->size, argv[1], ntohl(rpy_hdr->xid),
                    (1000*(double)(end.tv_sec - start.tv_sec))
                    + (.001*(end.tv_usec - start.tv_usec)));
+#else
+        printf("%zu bytes from %s: xid=%08"PRIx32" time=%.1f ms\n",
+            reply->size, argv[1], ntohl(rpy_hdr->xid),
+            (1000*(double)(end.tv_sec - start.tv_sec))
+            + (.001*(end.tv_usec - start.tv_usec)));
+#endif
         ofpbuf_delete(request);
         ofpbuf_delete(reply);
     }
@@ -1652,7 +1684,11 @@ ofctl_benchmark(int argc OVS_UNUSED, char *argv[])
 
     payload_size = atoi(argv[2]);
     if (payload_size > max_payload) {
+#ifdef _WIN32
+        ovs_fatal(0, "payload must be between 0 and %lu bytes", max_payload);
+#else
         ovs_fatal(0, "payload must be between 0 and %zu bytes", max_payload);
+#endif
     }
     message_size = sizeof(struct ofp_header) + payload_size;
 
@@ -2369,8 +2405,13 @@ ofctl_parse_ofp10_match(int argc OVS_UNUSED, char *argv[] OVS_UNUSED)
             ovs_fatal(0, "Trailing garbage in hex data");
         }
         if (match_expout.size != sizeof(struct ofp10_match)) {
-            ovs_fatal(0, "Input is %zu bytes, expected %zu",
+#ifdef _WIN32
+            ovs_fatal(0, "Input is %lu bytes, expected %lu",
                       match_expout.size, sizeof(struct ofp10_match));
+#else
+            ovs_fatal(0, "Input is %zu bytes, expected %zu",
+                match_expout.size, sizeof(struct ofp10_match));
+#endif
         }
 
         /* Parse hex bytes for input. */
@@ -2384,8 +2425,13 @@ ofctl_parse_ofp10_match(int argc OVS_UNUSED, char *argv[] OVS_UNUSED)
             ovs_fatal(0, "Trailing garbage in hex data");
         }
         if (match_in.size != sizeof(struct ofp10_match)) {
-            ovs_fatal(0, "Input is %zu bytes, expected %zu",
+#ifdef _WIN32
+            ovs_fatal(0, "Input is %lu bytes, expected %lu",
                       match_in.size, sizeof(struct ofp10_match));
+#else
+            ovs_fatal(0, "Input is %zu bytes, expected %zu",
+                match_in.size, sizeof(struct ofp10_match));
+#endif
         }
 
         /* Convert to cls_rule and print. */
@@ -2433,8 +2479,13 @@ ofctl_parse_ofp11_match(int argc OVS_UNUSED, char *argv[] OVS_UNUSED)
             ovs_fatal(0, "Trailing garbage in hex data");
         }
         if (match_in.size != sizeof(struct ofp11_match)) {
-            ovs_fatal(0, "Input is %zu bytes, expected %zu",
+#ifdef _WIN32
+            ovs_fatal(0, "Input is %lu bytes, expected %lu",
                       match_in.size, sizeof(struct ofp11_match));
+#else
+            ovs_fatal(0, "Input is %zu bytes, expected %zu",
+                match_in.size, sizeof(struct ofp11_match));
+#endif
         }
 
         /* Convert to match. */

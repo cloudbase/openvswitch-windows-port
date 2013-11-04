@@ -291,7 +291,7 @@ ip_format_masked(ovs_be32 ip, ovs_be32 mask, struct ds *s)
 void
 format_ipv6_addr(char *addr_str, const struct in6_addr *addr)
 {
-    inet_ntop(AF_INET6, addr, addr_str, INET6_ADDRSTRLEN);
+    inet_ntop(AF_INET6, addr, addr_str, INET6_ADDRSTRLEN); 
 }
 
 void
@@ -497,7 +497,11 @@ packet_rh_present(struct ofpbuf *packet)
     nh = (struct ovs_16aligned_ip6_hdr *)data;
     data += sizeof *nh;
     remaining -= sizeof *nh;
+#ifndef _WIN32
     nexthdr = nh->ip6_nxt;
+#else
+    nexthdr = nh->ip6_ctlun.ip6_un1.ip6_un1_nxt; 
+#endif
 
     while (1) {
         if ((nexthdr != IPPROTO_HOPOPTS)
@@ -663,11 +667,23 @@ packet_set_ipv6(struct ofpbuf *packet, uint8_t proto, const ovs_be32 src[4],
                              !packet_rh_present(packet));
     }
 
+#ifndef _WIN32
     packet_set_ipv6_tc(&nh->ip6_flow, key_tc);
+#else
+    packet_set_ipv6_tc(&nh->ip6_ctlun.ip6_un1.ip6_un1_flow, key_tc);
+#endif
 
+#ifndef _WIN32
     packet_set_ipv6_flow_label(&nh->ip6_flow, key_fl);
+#else
+    packet_set_ipv6_flow_label(&nh->ip6_ctlun.ip6_un1.ip6_un1_flow, key_fl);
+#endif
 
+#ifndef _WIN32
     nh->ip6_hlim = key_hl;
+#else
+    nh->ip6_ctlun.ip6_un1.ip6_un1_hlim = key_hl;
+#endif
 }
 
 static void

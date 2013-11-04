@@ -1,0 +1,10 @@
+﻿Build started 04.11.2013 4:49:37.
+     1>Project "f:\_1\tests\test-uuid.vcxproj" on node 3 (Build target(s)).
+     1>Link:
+         E:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"F:\_1\tests\Debug\test-uuid.exe" /INCREMENTAL /NOLOGO /LIBPATH:F:/_1/windows/thirdparty /LIBPATH:F:/_1/windows/thirdparty/Debug /LIBPATH:F:/_1 /LIBPATH:F:/_1/Debug /LIBPATH:F:/_1/include /LIBPATH:F:/_1/include/Debug /LIBPATH:F:/_1/lib /LIBPATH:F:/_1/lib/Debug /LIBPATH:F:/_1/ovsdb /LIBPATH:F:/_1/ovsdb/Debug /LIBPATH:F:/_1/utilities /LIBPATH:F:/_1/utilities/Debug /LIBPATH:F:/_1/tests /LIBPATH:F:/_1/tests/Debug /LIBPATH:F:/_1/windows /LIBPATH:F:/_1/windows/Debug kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib ..\windows\thirdparty\libeay32.lib ..\windows\thirdparty\ssleay32.lib ..\lib\Debug\openvswitch.lib ..\windows\Debug\win_api.lib ..\windows\thirdparty\libeay32.lib ..\windows\thirdparty\ssleay32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"F:/_1/tests/Debug/test-uuid.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"F:/_1/tests/Debug/test-uuid.lib" /MACHINE:X86 /SAFESEH  /machine:X86 /debug "test-uuid.dir\Debug\test-uuid.obj"
+         test-uuid.vcxproj -> F:\_1\tests\Debug\test-uuid.exe
+     1>Done Building Project "f:\_1\tests\test-uuid.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.13

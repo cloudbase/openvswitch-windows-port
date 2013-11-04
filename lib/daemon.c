@@ -75,9 +75,15 @@ static int lock_pidfile(FILE *, int command);
 char *
 make_pidfile_name(const char *name)
 {
+#ifndef _WIN32
     return (!name
             ? xasprintf("%s/%s.pid", ovs_rundir(), program_name)
             : abs_file_name(ovs_rundir(), name));
+#else
+    return (!name
+        ? xasprintf("%s.pid", ovs_rundir(), program_name)
+        : abs_file_name(ovs_rundir(), name));
+#endif
 }
 
 /* Sets up a following call to daemonize() to create a pidfile named 'name'.
@@ -257,7 +263,9 @@ fork_and_clean_up(void)
 {
     pid_t pid;
 
+#ifndef _WIN32
     pid = fork();
+#endif
     if (pid > 0) {
         /* Running in parent process. */
         fatal_signal_fork();
@@ -409,10 +417,12 @@ monitor_daemon(pid_t daemon_pid)
 
                     r.rlim_cur = 0;
                     r.rlim_max = 0;
+#ifndef _WIN32
                     if (setrlimit(RLIMIT_CORE, &r) == -1) {
                         VLOG_WARN("failed to disable core dumps: %s",
                                   strerror(errno));
                     }
+#endif
                 }
 
                 /* Throttle restarts to no more than once every 10 seconds. */
@@ -480,7 +490,7 @@ void
 daemonize_start(void)
 {
     daemonize_fd = -1;
-
+    
     if (detach) {
         if (fork_and_wait_for_startup(&daemonize_fd) > 0) {
             /* Running in parent process. */
@@ -488,7 +498,9 @@ daemonize_start(void)
         }
 
         /* Running in daemon or monitor process. */
+#ifndef _WIN32
         setsid();
+#endif
     }
 
     if (monitor) {
@@ -543,7 +555,9 @@ daemonize_post_detach(void)
 {
     if (detach) {
         if (chdir_) {
+#ifndef _WIN32
             ignore(chdir("/"));
+#endif
         }
         close_standard_fds();
     }
@@ -575,7 +589,7 @@ lock_pidfile__(FILE *file, int command, struct flock *lck)
 
     do {
         error = fcntl(fileno(file), command, lck) == -1 ? errno : 0;
-    } while (error == EINTR);
+    } while (error == EINTR); 
     return error;
 }
 

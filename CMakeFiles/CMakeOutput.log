@@ -1,0 +1,249 @@
+The system is: Windows - 6.2 - AMD64
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler:  
+Build flags: 
+Id flags: 
+
+The output was:
+0
+Microsoft (R) Build Engine version 12.0.20827.3
+[Microsoft .NET Framework, version 4.0.30319.18331]
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Build started 23.09.2013 1:22:56.
+Project "E:\Work\Cloudbase\OVS\_win_port\openvswitch-1.9.3\CMakeFiles\2.8.11.2\CompilerIdC\CompilerIdC.vcxproj" on node 1 (default targets).
+PrepareForBuild:
+  Creating directory "Debug\".
+  Creating directory "Debug\CompilerIdC.tlog\".
+InitializeBuildStatus:
+  Creating "Debug\CompilerIdC.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
+ClCompile:
+  E:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /nologo /W0 /WX- /Od /Oy- /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:queue CMakeCCompilerId.c
+  CMakeCCompilerId.c
+Link:
+  E:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:QUEUE /OUT:".\CompilerIdC.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\CompilerIdC.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\CompilerIdC.lib" /MACHINE:X86 /SAFESEH Debug\CMakeCCompilerId.obj
+  CompilerIdC.vcxproj -> E:\Work\Cloudbase\OVS\_win_port\openvswitch-1.9.3\CMakeFiles\2.8.11.2\CompilerIdC\.\CompilerIdC.exe
+PostBuildEvent:
+  for %%i in (cl.exe) do @echo CMAKE_C_COMPILER=%%~$PATH:i
+  :VCEnd
+  CMAKE_C_COMPILER=E:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\cl.exe
+FinalizeBuildStatus:
+  Deleting file "Debug\CompilerIdC.tlog\unsuccessfulbuild".
+  Touching "Debug\CompilerIdC.tlog\CompilerIdC.lastbuildstate".
+Done Building Project "E:\Work\Cloudbase\OVS\_win_port\openvswitch-1.9.3\CMakeFiles\2.8.11.2\CompilerIdC\CompilerIdC.vcxproj" (default targets).
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:09.86
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.exe"
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.vcxproj"
+
+The C compiler identification is MSVC, found in "E:/Work/Cloudbase/OVS/_win_port/openvswitch-1.9.3/CMakeFiles/2.8.11.2/CompilerIdC/CompilerIdC.exe"
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+Compiler:  
+Build flags: 
+Id flags: 
+
+The output was:
+0
+Microsoft (R) Build Engine version 12.0.20827.3
+[Microsoft .NET Framework, version 4.0.30319.18331]
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Build started 23.09.2013 1:23:06.
+Project "E:\Work\Cloudbase\OVS\_win_port\openvswitch-1.9.3\CMakeFiles\2.8.11.2\CompilerIdCXX\CompilerIdCXX.vcxproj" on node 1 (default targets).
+PrepareForBuild:
+  Creating directory "Debug\".
+  Creating directory "Debug\CompilerIdCXX.tlog\".
+InitializeBuildStatus:
+  Creating "Debug\CompilerIdCXX.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
+ClCompile:
+  E:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /nologo /W0 /WX- /Od /Oy- /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:queue CMakeCXXCompilerId.cpp
+  CMakeCXXCompilerId.cpp
+Link:
+  E:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:QUEUE /OUT:".\CompilerIdCXX.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\CompilerIdCXX.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\CompilerIdCXX.lib" /MACHINE:X86 /SAFESEH Debug\CMakeCXXCompilerId.obj
+  CompilerIdCXX.vcxproj -> E:\Work\Cloudbase\OVS\_win_port\openvswitch-1.9.3\CMakeFiles\2.8.11.2\CompilerIdCXX\.\CompilerIdCXX.exe
+PostBuildEvent:
+  for %%i in (cl.exe) do @echo CMAKE_CXX_COMPILER=%%~$PATH:i
+  :VCEnd
+  CMAKE_CXX_COMPILER=E:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\cl.exe
+FinalizeBuildStatus:
+  Deleting file "Debug\CompilerIdCXX.tlog\unsuccessfulbuild".
+  Touching "Debug\CompilerIdCXX.tlog\CompilerIdCXX.lastbuildstate".
+Done Building Project "E:\Work\Cloudbase\OVS\_win_port\openvswitch-1.9.3\CMakeFiles\2.8.11.2\CompilerIdCXX\CompilerIdCXX.vcxproj" (default targets).
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:02.38
+
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.vcxproj"
+
+The CXX compiler identification is MSVC, found in "E:/Work/Cloudbase/OVS/_win_port/openvswitch-1.9.3/CMakeFiles/2.8.11.2/CompilerIdCXX/CompilerIdCXX.exe"
+
+Determining if the C compiler works passed with the following output:
+Change Dir: E:/Work/Cloudbase/OVS/_win_port/openvswitch-1.9.3/CMakeFiles/CMakeTmp
+
+Run Build Command:C:\PROGRA~2\MSBuild\12.0\Bin\MSBuild.exe cmTryCompileExec3436633087.vcxproj /p:Configuration=Debug /p:VisualStudioVersion=12.0
+Microsoft (R) Build Engine version 12.0.20827.3
+[Microsoft .NET Framework, version 4.0.30319.18331]
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Build started 23.09.2013 1:23:10.
+Project "E:\Work\Cloudbase\OVS\_win_port\openvswitch-1.9.3\CMakeFiles\CMakeTmp\cmTryCompileExec3436633087.vcxproj" on node 1 (default targets).
+PrepareForBuild:
+  Creating directory "cmTryCompileExec3436633087.dir\Debug\".
+  Creating directory "E:\Work\Cloudbase\OVS\_win_port\openvswitch-1.9.3\CMakeFiles\CMakeTmp\Debug\".
+  Creating directory "cmTryCompileExec3436633087.dir\Debug\cmTryCom.8CA05FD0.tlog\".
+InitializeBuildStatus:
+  Creating "cmTryCompileExec3436633087.dir\Debug\cmTryCom.8CA05FD0.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
+ClCompile:
+  E:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTryCompileExec3436633087.dir\Debug\\" /Fd"E:/Work/Cloudbase/OVS/_win_port/openvswitch-1.9.3/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec3436633087.pdb" /Gd /TC /analyze- /errorReport:queue testCCompiler.c
+  Microsoft (R) C/C++ Optimizing Compiler Version 18.00.20827.3 for x86
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+  
+  cl /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTryCompileExec3436633087.dir\Debug\\" /Fd"E:/Work/Cloudbase/OVS/_win_port/openvswitch-1.9.3/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec3436633087.pdb" /Gd /TC /analyze- /errorReport:queue testCCompiler.c
+  
+  testCCompiler.c
+Link:
+  E:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:QUEUE /OUT:"E:\Work\Cloudbase\OVS\_win_port\openvswitch-1.9.3\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec3436633087.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:/Work/Cloudbase/OVS/_win_port/openvswitch-1.9.3/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec3436633087.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:/Work/Cloudbase/OVS/_win_port/openvswitch-1.9.3/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec3436633087.lib" /MACHINE:X86 /SAFESEH  /machine:X86 /debug cmTryCompileExec3436633087.dir\Debug\testCCompiler.obj
+  cmTryCompileExec3436633087.vcxproj -> E:\Work\Cloudbase\OVS\_win_port\openvswitch-1.9.3\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec3436633087.exe
+FinalizeBuildStatus:
+  Deleting file "cmTryCompileExec3436633087.dir\Debug\cmTryCom.8CA05FD0.tlog\unsuccessfulbuild".
+  Touching "cmTryCompileExec3436633087.dir\Debug\cmTryCom.8CA05FD0.tlog\cmTryCompileExec3436633087.lastbuildstate".
+Done Building Project "E:\Work\Cloudbase\OVS\_win_port\openvswitch-1.9.3\CMakeFiles\CMakeTmp\cmTryCompileExec3436633087.vcxproj" (default targets).
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:02.85
+
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: E:/Work/Cloudbase/OVS/_win_port/openvswitch-1.9.3/CMakeFiles/CMakeTmp
+
+Run Build Command:C:\PROGRA~2\MSBuild\12.0\Bin\MSBuild.exe cmTryCompileExec3509687286.vcxproj /p:Configuration=Debug /p:VisualStudioVersion=12.0
+Microsoft (R) Build Engine version 12.0.20827.3
+[Microsoft .NET Framework, version 4.0.30319.18331]
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Build started 23.09.2013 1:23:13.
+Project "E:\Work\Cloudbase\OVS\_win_port\openvswitch-1.9.3\CMakeFiles\CMakeTmp\cmTryCompileExec3509687286.vcxproj" on node 1 (default targets).
+PrepareForBuild:
+  Creating directory "cmTryCompileExec3509687286.dir\Debug\".
+  Creating directory "E:\Work\Cloudbase\OVS\_win_port\openvswitch-1.9.3\CMakeFiles\CMakeTmp\Debug\".
+  Creating directory "cmTryCompileExec3509687286.dir\Debug\cmTryCom.65439F0A.tlog\".
+InitializeBuildStatus:
+  Creating "cmTryCompileExec3509687286.dir\Debug\cmTryCom.65439F0A.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
+ClCompile:
+  E:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTryCompileExec3509687286.dir\Debug\\" /Fd"E:/Work/Cloudbase/OVS/_win_port/openvswitch-1.9.3/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec3509687286.pdb" /Gd /TC /analyze- /errorReport:queue "C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCCompilerABI.c"
+  Microsoft (R) C/C++ Optimizing Compiler Version 18.00.20827.3 for x86
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+  
+  cl /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTryCompileExec3509687286.dir\Debug\\" /Fd"E:/Work/Cloudbase/OVS/_win_port/openvswitch-1.9.3/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec3509687286.pdb" /Gd /TC /analyze- /errorReport:queue "C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCCompilerABI.c"
+  
+  CMakeCCompilerABI.c
+Link:
+  E:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:QUEUE /OUT:"E:\Work\Cloudbase\OVS\_win_port\openvswitch-1.9.3\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec3509687286.exe" /INCREMENTAL /NOLOGO /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:/Work/Cloudbase/OVS/_win_port/openvswitch-1.9.3/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec3509687286.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:/Work/Cloudbase/OVS/_win_port/openvswitch-1.9.3/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec3509687286.lib" /MACHINE:X86 /SAFESEH  /machine:X86 /debug cmTryCompileExec3509687286.dir\Debug\CMakeCCompilerABI.obj
+  cmTryCompileExec3509687286.vcxproj -> E:\Work\Cloudbase\OVS\_win_port\openvswitch-1.9.3\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec3509687286.exe
+FinalizeBuildStatus:
+  Deleting file "cmTryCompileExec3509687286.dir\Debug\cmTryCom.65439F0A.tlog\unsuccessfulbuild".
+  Touching "cmTryCompileExec3509687286.dir\Debug\cmTryCom.65439F0A.tlog\cmTryCompileExec3509687286.lastbuildstate".
+Done Building Project "E:\Work\Cloudbase\OVS\_win_port\openvswitch-1.9.3\CMakeFiles\CMakeTmp\cmTryCompileExec3509687286.vcxproj" (default targets).
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:02.15
+
+
+Determining if the CXX compiler works passed with the following output:
+Change Dir: E:/Work/Cloudbase/OVS/_win_port/openvswitch-1.9.3/CMakeFiles/CMakeTmp
+
+Run Build Command:C:\PROGRA~2\MSBuild\12.0\Bin\MSBuild.exe cmTryCompileExec753304347.vcxproj /p:Configuration=Debug /p:VisualStudioVersion=12.0
+Microsoft (R) Build Engine version 12.0.20827.3
+[Microsoft .NET Framework, version 4.0.30319.18331]
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Build started 23.09.2013 1:23:16.
+Project "E:\Work\Cloudbase\OVS\_win_port\openvswitch-1.9.3\CMakeFiles\CMakeTmp\cmTryCompileExec753304347.vcxproj" on node 1 (default targets).
+PrepareForBuild:
+  Creating directory "cmTryCompileExec753304347.dir\Debug\".
+  Creating directory "E:\Work\Cloudbase\OVS\_win_port\openvswitch-1.9.3\CMakeFiles\CMakeTmp\Debug\".
+  Creating directory "cmTryCompileExec753304347.dir\Debug\cmTryCom.46A5C774.tlog\".
+InitializeBuildStatus:
+  Creating "cmTryCompileExec753304347.dir\Debug\cmTryCom.46A5C774.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
+ClCompile:
+  E:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTryCompileExec753304347.dir\Debug\\" /Fd"E:/Work/Cloudbase/OVS/_win_port/openvswitch-1.9.3/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec753304347.pdb" /Gd /TP /analyze- /errorReport:queue testCXXCompiler.cxx
+  Microsoft (R) C/C++ Optimizing Compiler Version 18.00.20827.3 for x86
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+  
+  cl /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTryCompileExec753304347.dir\Debug\\" /Fd"E:/Work/Cloudbase/OVS/_win_port/openvswitch-1.9.3/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec753304347.pdb" /Gd /TP /analyze- /errorReport:queue testCXXCompiler.cxx
+  
+  testCXXCompiler.cxx
+Link:
+  E:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:QUEUE /OUT:"E:\Work\Cloudbase\OVS\_win_port\openvswitch-1.9.3\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec753304347.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:/Work/Cloudbase/OVS/_win_port/openvswitch-1.9.3/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec753304347.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:/Work/Cloudbase/OVS/_win_port/openvswitch-1.9.3/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec753304347.lib" /MACHINE:X86 /SAFESEH  /machine:X86 /debug cmTryCompileExec753304347.dir\Debug\testCXXCompiler.obj
+  cmTryCompileExec753304347.vcxproj -> E:\Work\Cloudbase\OVS\_win_port\openvswitch-1.9.3\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec753304347.exe
+FinalizeBuildStatus:
+  Deleting file "cmTryCompileExec753304347.dir\Debug\cmTryCom.46A5C774.tlog\unsuccessfulbuild".
+  Touching "cmTryCompileExec753304347.dir\Debug\cmTryCom.46A5C774.tlog\cmTryCompileExec753304347.lastbuildstate".
+Done Building Project "E:\Work\Cloudbase\OVS\_win_port\openvswitch-1.9.3\CMakeFiles\CMakeTmp\cmTryCompileExec753304347.vcxproj" (default targets).
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:02.17
+
+
+Detecting CXX compiler ABI info compiled with the following output:
+Change Dir: E:/Work/Cloudbase/OVS/_win_port/openvswitch-1.9.3/CMakeFiles/CMakeTmp
+
+Run Build Command:C:\PROGRA~2\MSBuild\12.0\Bin\MSBuild.exe cmTryCompileExec3611727403.vcxproj /p:Configuration=Debug /p:VisualStudioVersion=12.0
+Microsoft (R) Build Engine version 12.0.20827.3
+[Microsoft .NET Framework, version 4.0.30319.18331]
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Build started 23.09.2013 1:23:19.
+Project "E:\Work\Cloudbase\OVS\_win_port\openvswitch-1.9.3\CMakeFiles\CMakeTmp\cmTryCompileExec3611727403.vcxproj" on node 1 (default targets).
+PrepareForBuild:
+  Creating directory "cmTryCompileExec3611727403.dir\Debug\".
+  Creating directory "E:\Work\Cloudbase\OVS\_win_port\openvswitch-1.9.3\CMakeFiles\CMakeTmp\Debug\".
+  Creating directory "cmTryCompileExec3611727403.dir\Debug\cmTryCom.B089603F.tlog\".
+InitializeBuildStatus:
+  Creating "cmTryCompileExec3611727403.dir\Debug\cmTryCom.B089603F.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
+ClCompile:
+  E:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTryCompileExec3611727403.dir\Debug\\" /Fd"E:/Work/Cloudbase/OVS/_win_port/openvswitch-1.9.3/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec3611727403.pdb" /Gd /TP /analyze- /errorReport:queue "C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCXXCompilerABI.cpp"
+  Microsoft (R) C/C++ Optimizing Compiler Version 18.00.20827.3 for x86
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+  
+  cl /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTryCompileExec3611727403.dir\Debug\\" /Fd"E:/Work/Cloudbase/OVS/_win_port/openvswitch-1.9.3/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec3611727403.pdb" /Gd /TP /analyze- /errorReport:queue "C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCXXCompilerABI.cpp"
+  
+  CMakeCXXCompilerABI.cpp
+Link:
+  E:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:QUEUE /OUT:"E:\Work\Cloudbase\OVS\_win_port\openvswitch-1.9.3\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec3611727403.exe" /INCREMENTAL /NOLOGO /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:/Work/Cloudbase/OVS/_win_port/openvswitch-1.9.3/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec3611727403.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:/Work/Cloudbase/OVS/_win_port/openvswitch-1.9.3/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec3611727403.lib" /MACHINE:X86 /SAFESEH  /machine:X86 /debug cmTryCompileExec3611727403.dir\Debug\CMakeCXXCompilerABI.obj
+  cmTryCompileExec3611727403.vcxproj -> E:\Work\Cloudbase\OVS\_win_port\openvswitch-1.9.3\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec3611727403.exe
+FinalizeBuildStatus:
+  Deleting file "cmTryCompileExec3611727403.dir\Debug\cmTryCom.B089603F.tlog\unsuccessfulbuild".
+  Touching "cmTryCompileExec3611727403.dir\Debug\cmTryCom.B089603F.tlog\cmTryCompileExec3611727403.lastbuildstate".
+Done Building Project "E:\Work\Cloudbase\OVS\_win_port\openvswitch-1.9.3\CMakeFiles\CMakeTmp\cmTryCompileExec3611727403.vcxproj" (default targets).
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:02.30
+
+

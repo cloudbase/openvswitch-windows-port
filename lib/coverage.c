@@ -222,7 +222,11 @@ coverage_read(struct svec *lines)
             }
         }
     }
+#ifdef _WIN32
+    svec_add_nocopy(lines, xasprintf("%lu events never hit", n_never_hit));
+#else
     svec_add_nocopy(lines, xasprintf("%zu events never hit", n_never_hit));
+#endif
 }
 
 /* Advances to the next epoch of coverage, resetting all the counters to 0. */

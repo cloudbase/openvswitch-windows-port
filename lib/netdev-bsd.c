@@ -464,15 +464,15 @@ netdev_bsd_listen(struct netdev *netdev_)
      * because the interface flags are manually set by the caller. */
     errbuf[0] = '\0';
     netdev->pcap_handle = pcap_open_live(netdev_get_name(netdev_), PCAP_SNAPLEN,
-				     0, 1000, errbuf);
+                     0, 1000, errbuf);
     if (netdev->pcap_handle == NULL) {
         VLOG_ERR("%s: pcap_open_live failed: %s",
-		netdev_get_name(netdev_), errbuf);
+        netdev_get_name(netdev_), errbuf);
         error = EIO;
         goto error;
     } else if (errbuf[0] !=  '\0') {
         VLOG_WARN("%s: pcap_open_live: %s",
-		netdev_get_name(netdev_), errbuf);
+        netdev_get_name(netdev_), errbuf);
     }
 
     netdev_dev_bsd_changed(netdev_dev_bsd_cast(netdev_get_dev(netdev_)));
@@ -498,7 +498,7 @@ netdev_bsd_listen(struct netdev *netdev_)
      * full or a timeout occurs. */
     if(ioctl(fd, BIOCIMMEDIATE, &one) < 0 ) {
         VLOG_ERR("ioctl(BIOCIMMEDIATE) on %s device failed: %s",
-		netdev_get_name(netdev_), strerror(errno));
+        netdev_get_name(netdev_), strerror(errno));
         error = errno;
         goto error;
     }
@@ -586,7 +586,7 @@ netdev_bsd_recv_system(struct netdev_bsd *netdev, void *data, size_t size)
         ret = pcap_dispatch(netdev->pcap_handle, 1, proc_pkt, (u_char *)&arg);
 
         if (ret > 0) {
-            return arg.retval;	/* arg.retval < 0 is handled in the caller */
+            return arg.retval;    /* arg.retval < 0 is handled in the caller */
         }
         if (ret == -1) {
             if (errno == EINTR) {
@@ -716,7 +716,7 @@ netdev_bsd_send(struct netdev *netdev_, const void *data, size_t size)
             return errno;
         } else if (retval != size) {
             VLOG_WARN_RL(&rl, "sent partial Ethernet packet (%zd bytes of "
-                         "%zu) on %s", retval, size,
+                         "%lu) on %s", retval, size,
                          netdev_get_name(netdev_));
            return EMSGSIZE;
         } else {

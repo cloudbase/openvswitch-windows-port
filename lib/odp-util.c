@@ -309,8 +309,13 @@ format_odp_action(struct ds *ds, const struct nlattr *a)
 
     expected_len = odp_action_len(nl_attr_type(a));
     if (expected_len != -2 && nl_attr_get_size(a) != expected_len) {
-        ds_put_format(ds, "bad length %zu, expected %d for: ",
+#ifdef _WIN32
+        ds_put_format(ds, "bad length %lu, expected %d for: ",
                       nl_attr_get_size(a), expected_len);
+#else
+        ds_put_format(ds, "bad length %zu, expected %d for: ",
+            nl_attr_get_size(a), expected_len);
+#endif
         format_generic_odp_action(ds, a);
         return;
     }
@@ -796,7 +801,11 @@ format_odp_key_attr(const struct nlattr *a, struct ds *ds)
     ds_put_cstr(ds, ovs_key_attr_to_string(attr));
     expected_len = odp_flow_key_attr_len(nl_attr_type(a));
     if (expected_len != -2 && nl_attr_get_size(a) != expected_len) {
+#ifdef _WIN32
+        ds_put_format(ds, "(bad length %lu, expected %d)",
+#else
         ds_put_format(ds, "(bad length %zu, expected %d)",
+#endif
                       nl_attr_get_size(a),
                       odp_flow_key_attr_len(nl_attr_type(a)));
         format_generic_odp_key(a, ds);
@@ -1127,15 +1136,38 @@ parse_odp_key_attr(const char *s, const struct simap *port_names,
     {
         struct ovs_key_ethernet eth_key;
         int n = -1;
+#ifdef _WIN32
+        //hhx qualifiers missing in VSTUDIO http://hardforum.com/showthread.php?t=1047381
+        //reading into ints and casting back to a char
+        int special_thanks_src[6], special_thanks_dst[6];
+        int i = 0;
 
         if (sscanf(s,
                    "eth(src="ETH_ADDR_SCAN_FMT",dst="ETH_ADDR_SCAN_FMT")%n",
-                   ETH_ADDR_SCAN_ARGS(eth_key.eth_src),
-                   ETH_ADDR_SCAN_ARGS(eth_key.eth_dst), &n) > 0 && n > 0) {
+                   ETH_ADDR_SCAN_ARGS(special_thanks_src),
+                   ETH_ADDR_SCAN_ARGS(special_thanks_dst), &n) > 0 && n > 0) 
+            {
+                for (i; i < 6; i++)
+                    {
+                        eth_key.eth_src[i] = (__u8)special_thanks_src[i];
+                        eth_key.eth_dst[i] = (__u8)special_thanks_dst[i];
+                    }
             nl_msg_put_unspec(key, OVS_KEY_ATTR_ETHERNET,
                               &eth_key, sizeof eth_key);
             return n;
+            }
+#else
+
+        if (sscanf(s,
+            "eth(src="ETH_ADDR_SCAN_FMT",dst="ETH_ADDR_SCAN_FMT")%n",
+            ETH_ADDR_SCAN_ARGS(eth_key.eth_src),
+            ETH_ADDR_SCAN_ARGS(eth_key.eth_dst), &n) > 0 && n > 0) {
+            nl_msg_put_unspec(key, OVS_KEY_ATTR_ETHERNET,
+                &eth_key, sizeof eth_key);
+            return n;
         }
+#endif
+
     }
 
     {
@@ -1219,7 +1251,7 @@ parse_odp_key_attr(const char *s, const struct simap *port_names,
                    &ipv6_proto, &ipv6_tclass, &ipv6_hlimit, frag, &n) > 0
             && n > 0
             && ovs_frag_type_from_string(frag, &ipv6_frag)) {
-            struct ovs_key_ipv6 ipv6_key;
+                struct ovs_key_ipv6 ipv6_key;
 
             if (inet_pton(AF_INET6, ipv6_src_s, &ipv6_key.ipv6_src) != 1 ||
                 inet_pton(AF_INET6, ipv6_dst_s, &ipv6_key.ipv6_dst) != 1) {
@@ -1290,13 +1322,30 @@ parse_odp_key_attr(const char *s, const struct simap *port_names,
         struct ovs_key_icmpv6 icmpv6_key;
         int n = -1;
 
+#ifdef _WIN32
+        //hhx qualifiers missing in VSTUDIO http://hardforum.com/showthread.php?t=1047381
+        //reading into ints and casting back to a char
+        int special_type = 0, special_code = 0;
+        if (sscanf(s, 
+            "icmpv6(type=%"SCNi8",code=%"SCNi8")%n",
+            &special_type, &special_code, &n) > 0
+            && n > 0)
+            {
+            icmpv6_key.icmpv6_type = (__u8)special_type;
+            icmpv6_key.icmpv6_code = (__u8)special_code;
+            nl_msg_put_unspec(key, OVS_KEY_ATTR_ICMPV6,
+                &icmpv6_key, sizeof icmpv6_key);
+            return n;
+            }
+#else
         if (sscanf(s, "icmpv6(type=%"SCNi8",code=%"SCNi8")%n",
-                   &icmpv6_key.icmpv6_type, &icmpv6_key.icmpv6_code,&n) > 0
+            &icmpv6_key.icmpv6_type, &icmpv6_key.icmpv6_code,&n) > 0
             && n > 0) {
             nl_msg_put_unspec(key, OVS_KEY_ATTR_ICMPV6,
-                              &icmpv6_key, sizeof icmpv6_key);
+                &icmpv6_key, sizeof icmpv6_key);
             return n;
         }
+#endif
     }
 
     {
@@ -1649,9 +1698,15 @@ parse_flow_nlattrs(const struct nlattr *key, size_t key_len,
         int expected_len = odp_flow_key_attr_len(type);
 
         if (len != expected_len && expected_len >= 0) {
-            VLOG_ERR_RL(&rl, "attribute %s has length %zu but should have "
+#ifdef _WIN32
+            VLOG_ERR_RL(&rl, "attribute %s has length %lu but should have "
                         "length %d", ovs_key_attr_to_string(type),
                         len, expected_len);
+#else
+            VLOG_ERR_RL(&rl, "attribute %s has length %zu but should have "
+                "length %d", ovs_key_attr_to_string(type),
+                len, expected_len);
+#endif
             return false;
         }
 

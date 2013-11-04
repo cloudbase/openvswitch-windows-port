@@ -8,6 +8,10 @@
 #ifndef SFLOW_H
 #define SFLOW_H 1
 
+#ifdef _WIN32
+#include <config.h>
+#endif
+
 enum SFLAddress_type {
     SFLADDRESSTYPE_IP_V4 = 1,
     SFLADDRESSTYPE_IP_V6 = 2

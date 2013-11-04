@@ -21,7 +21,7 @@
 #include <signal.h>
 #include <unistd.h>
 
-#include "column.h"
+#include "column.h" 
 #include "command-line.h"
 #include "daemon.h"
 #include "dirs.h"
@@ -29,18 +29,26 @@
 #include "dynamic-string.h"
 #include "file.h"
 #include "hash.h"
-#include "json.h"
+#include "json.h" 
 #include "jsonrpc.h"
 #include "jsonrpc-server.h"
 #include "leak-checker.h"
 #include "list.h"
+#ifdef _WIN32
+#include "../lib/memory.h"
+#else
 #include "memory.h"
+#endif
 #include "ovsdb.h"
 #include "ovsdb-data.h"
 #include "ovsdb-types.h"
 #include "ovsdb-error.h"
 #include "poll-loop.h"
+#ifdef _WIN32
+#include "../lib/process.h"
+#else
 #include "process.h"
+#endif
 #include "row.h"
 #include "simap.h"
 #include "stream-ssl.h"
@@ -93,6 +101,22 @@ static void update_remote_status(const struct ovsdb_jsonrpc_server *jsonrpc,
 int
 main(int argc, char *argv[])
 {
+#ifdef _WIN32
+    WORD wVersionRequested;
+    WSADATA wsaData;
+    int err;
+
+    /* Use the MAKEWORD(lowbyte, highbyte) macro declared in Windef.h */
+    wVersionRequested = MAKEWORD(2, 2);
+
+    err = WSAStartup(wVersionRequested, &wsaData);
+    if (err != 0) {
+        /* Tell the user that we could not find a usable */
+        /* Winsock DLL.                                  */
+        printf("WSAStartup failed with error: %d\n", err);
+        return 1;
+    }
+#endif
     char *unixctl_path = NULL;
     char *run_command = NULL;
     struct unixctl_server *unixctl;
@@ -124,7 +148,11 @@ main(int argc, char *argv[])
             dbs[i].filename = argv[i];
         }
     } else {
+#ifndef _WIN32
         dbs[0].filename = xasprintf("%s/conf.db", ovs_dbdir());
+#else
+        dbs[0].filename = xasprintf("conf.db", ovs_dbdir());
+#endif
     }
 
     for (i = 0; i < n_dbs; i++) {
@@ -164,7 +192,7 @@ main(int argc, char *argv[])
             ovs_fatal(retval, "%s: process failed to start", run_command);
         }
     } else {
-        run_process = NULL;
+        run_process = NULL; 
     }
 
     daemonize_complete();
@@ -807,7 +835,9 @@ ovsdb_server_compact(struct unixctl_conn *conn, int argc,
                 char *s = ovsdb_error_to_string(error);
                 ds_put_format(&reply, "%s\n", s);
                 free(s);
+#ifndef _WIN32
                 ovsdb_error_destroy(error);
+#endif
             }
 
             n++;
@@ -933,6 +963,14 @@ parse_options(int *argcp, char **argvp[],
         }
     }
     free(short_options);
+#ifdef _WIN32
+    if (sset_is_empty(remotes))
+    {
+        sset_add(remotes, "ptcp:5559:127.0.0.1");
+        sset_add(remotes, "remote=db");
+    }
+
+#endif
 
     *argcp -= optind;
     *argvp += optind;

@@ -170,7 +170,7 @@ void eth_addr_bitand(const uint8_t src[ETH_ADDR_LEN],
  *     ...
  * }
  */
-#define ETH_ADDR_SCAN_FMT "%"SCNx8":%"SCNx8":%"SCNx8":%"SCNx8":%"SCNx8":%"SCNx8
+#define ETH_ADDR_SCAN_FMT "%"PRIx8":%"PRIx8":%"PRIx8":%"PRIx8":%"PRIx8":%"PRIx8
 #define ETH_ADDR_SCAN_ARGS(ea) \
         &(ea)[0], &(ea)[1], &(ea)[2], &(ea)[3], &(ea)[4], &(ea)[5]
 #define ETH_ADDR_SCAN_COUNT 6
@@ -194,11 +194,12 @@ void eth_addr_bitand(const uint8_t src[ETH_ADDR_LEN],
 #define ETH_TOTAL_MIN (ETH_HEADER_LEN + ETH_PAYLOAD_MIN)
 #define ETH_TOTAL_MAX (ETH_HEADER_LEN + ETH_PAYLOAD_MAX)
 #define ETH_VLAN_TOTAL_MAX (ETH_HEADER_LEN + VLAN_HEADER_LEN + ETH_PAYLOAD_MAX)
+PACKED_STRUCT
 struct eth_header {
     uint8_t eth_dst[ETH_ADDR_LEN];
     uint8_t eth_src[ETH_ADDR_LEN];
     ovs_be16 eth_type;
-} __attribute__((packed));
+}END_PACKED_STRUCT;
 BUILD_ASSERT_DECL(ETH_HEADER_LEN == sizeof(struct eth_header));
 
 #define LLC_DSAP_SNAP 0xaa
@@ -206,27 +207,30 @@ BUILD_ASSERT_DECL(ETH_HEADER_LEN == sizeof(struct eth_header));
 #define LLC_CNTL_SNAP 3
 
 #define LLC_HEADER_LEN 3
+PACKED_STRUCT
 struct llc_header {
     uint8_t llc_dsap;
     uint8_t llc_ssap;
     uint8_t llc_cntl;
-} __attribute__((packed));
+} END_PACKED_STRUCT;
 BUILD_ASSERT_DECL(LLC_HEADER_LEN == sizeof(struct llc_header));
 
 #define SNAP_ORG_ETHERNET "\0\0" /* The compiler adds a null byte, so
                                     sizeof(SNAP_ORG_ETHERNET) == 3. */
 #define SNAP_HEADER_LEN 5
+PACKED_STRUCT
 struct snap_header {
     uint8_t snap_org[3];
     ovs_be16 snap_type;
-} __attribute__((packed));
+} END_PACKED_STRUCT;
 BUILD_ASSERT_DECL(SNAP_HEADER_LEN == sizeof(struct snap_header));
 
 #define LLC_SNAP_HEADER_LEN (LLC_HEADER_LEN + SNAP_HEADER_LEN)
+PACKED_STRUCT
 struct llc_snap_header {
     struct llc_header llc;
     struct snap_header snap;
-} __attribute__((packed));
+}END_PACKED_STRUCT;
 BUILD_ASSERT_DECL(LLC_SNAP_HEADER_LEN == sizeof(struct llc_snap_header));
 
 #define VLAN_VID_MASK 0x0fff
@@ -261,13 +265,14 @@ struct vlan_header {
 BUILD_ASSERT_DECL(VLAN_HEADER_LEN == sizeof(struct vlan_header));
 
 #define VLAN_ETH_HEADER_LEN (ETH_HEADER_LEN + VLAN_HEADER_LEN)
+PACKED_STRUCT
 struct vlan_eth_header {
     uint8_t veth_dst[ETH_ADDR_LEN];
     uint8_t veth_src[ETH_ADDR_LEN];
     ovs_be16 veth_type;         /* Always htons(ETH_TYPE_VLAN). */
     ovs_be16 veth_tci;          /* Lowest 12 bits are VLAN ID. */
     ovs_be16 veth_next_type;
-} __attribute__((packed));
+}END_PACKED_STRUCT;
 BUILD_ASSERT_DECL(VLAN_ETH_HEADER_LEN == sizeof(struct vlan_eth_header));
 
 /* The "(void) (ip)[0]" below has no effect on the value, since it's the first
@@ -502,7 +507,7 @@ static inline bool ipv6_mask_is_exact(const struct in6_addr *mask) {
     return ipv6_addr_equals(mask, &in6addr_exact);
 }
 
-void format_ipv6_addr(char *addr_str, const struct in6_addr *addr);
+//void format_ipv6_addr(char *addr_str, const struct in6_addr *addr);
 void print_ipv6_addr(struct ds *string, const struct in6_addr *addr);
 void print_ipv6_masked(struct ds *string, const struct in6_addr *addr,
                        const struct in6_addr *mask);

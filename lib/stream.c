@@ -74,6 +74,10 @@ check_stream_classes(void)
 
     for (i = 0; i < ARRAY_SIZE(stream_classes); i++) {
         const struct stream_class *class = stream_classes[i];
+#ifdef _WIN32
+        if (!class)
+            return;
+#endif
         assert(class->name != NULL);
         assert(class->open != NULL);
         if (class->close || class->recv || class->send || class->run
@@ -249,6 +253,12 @@ stream_open_block(int error, struct stream **streamp)
             stream_run_wait(stream);
             stream_connect_wait(stream);
             poll_block();
+#ifdef _WIN32
+            if (!stream)
+            {
+                return 0;
+            }
+#endif
         }
         assert(error != EINPROGRESS);
     }
@@ -335,23 +345,30 @@ stream_connect(struct stream *stream)
 {
     enum stream_state last_state;
 
-    do {
-        last_state = stream->state;
-        switch (stream->state) {
-        case SCS_CONNECTING:
-            scs_connecting(stream);
-            break;
+#ifdef _WIN32
+    if (stream)
+    {
+#endif
+        do {
+            last_state = stream->state;
+            switch (stream->state) {
+            case SCS_CONNECTING:
+                scs_connecting(stream);
+                break;
 
-        case SCS_CONNECTED:
-            return 0;
+            case SCS_CONNECTED:
+                return 0;
 
-        case SCS_DISCONNECTED:
-            return stream->error;
+            case SCS_DISCONNECTED:
+                return stream->error;
 
-        default:
-            NOT_REACHED();
-        }
-    } while (stream->state != last_state);
+            default:
+                NOT_REACHED();
+            }
+        } while (stream->state != last_state);
+#ifdef _WIN32
+    }
+#endif
 
     return EAGAIN;
 }
@@ -399,8 +416,11 @@ stream_send(struct stream *stream, const void *buffer, size_t n)
 void
 stream_run(struct stream *stream)
 {
-    if (stream->class->run) {
-        (stream->class->run)(stream);
+    if (stream)
+    {
+        if (stream->class->run) {
+            (stream->class->run)(stream);
+        }
     }
 }
 
@@ -409,8 +429,11 @@ stream_run(struct stream *stream)
 void
 stream_run_wait(struct stream *stream)
 {
-    if (stream->class->run_wait) {
-        (stream->class->run_wait)(stream);
+    if (stream)
+    {
+        if (stream->class->run_wait) {
+            (stream->class->run_wait)(stream);
+        }
     }
 }
 
@@ -422,6 +445,8 @@ stream_wait(struct stream *stream, enum stream_wait_type wait)
     assert(wait == STREAM_CONNECT || wait == STREAM_RECV
            || wait == STREAM_SEND);
 
+    if (!stream)
+        return;
     switch (stream->state) {
     case SCS_CONNECTING:
         wait = STREAM_CONNECT;
@@ -561,9 +586,12 @@ void
 pstream_close(struct pstream *pstream)
 {
     if (pstream != NULL) {
-        char *name = pstream->name;
-        (pstream->class->close)(pstream);
-        free(name);
+        if (pstream->name != NULL)
+        {
+            char *name = pstream->name;
+            (pstream->class->close)(pstream);
+            free(name);
+        }
     }
 }
 

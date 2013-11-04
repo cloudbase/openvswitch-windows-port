@@ -565,40 +565,65 @@ ofproto_set_desc(struct ofproto *p,
 
     if (mfr_desc) {
         if (strlen(mfr_desc) >= sizeof ods->mfr_desc) {
-            VLOG_WARN("%s: truncating mfr_desc, must be less than %zu bytes",
+#ifdef _WIN32
+            VLOG_WARN("%s: truncating mfr_desc, must be less than %lu bytes",
                       p->name, sizeof ods->mfr_desc);
+#else
+            VLOG_WARN("%s: truncating mfr_desc, must be less than %zu bytes",
+                p->name, sizeof ods->mfr_desc);
+#endif
         }
         free(p->mfr_desc);
         p->mfr_desc = xstrdup(mfr_desc);
     }
     if (hw_desc) {
         if (strlen(hw_desc) >= sizeof ods->hw_desc) {
-            VLOG_WARN("%s: truncating hw_desc, must be less than %zu bytes",
+#ifdef _WIN32
+            VLOG_WARN("%s: truncating hw_desc, must be less than %lu bytes",
                       p->name, sizeof ods->hw_desc);
+#else
+            VLOG_WARN("%s: truncating hw_desc, must be less than %zu bytes",
+                p->name, sizeof ods->hw_desc);
+#endif
         }
         free(p->hw_desc);
         p->hw_desc = xstrdup(hw_desc);
     }
     if (sw_desc) {
         if (strlen(sw_desc) >= sizeof ods->sw_desc) {
-            VLOG_WARN("%s: truncating sw_desc, must be less than %zu bytes",
+#ifdef _WIN32
+            VLOG_WARN("%s: truncating sw_desc, must be less than %lu bytes",
                       p->name, sizeof ods->sw_desc);
+#else
+            VLOG_WARN("%s: truncating sw_desc, must be less than %zu bytes",
+                p->name, sizeof ods->sw_desc);
+#endif
         }
         free(p->sw_desc);
         p->sw_desc = xstrdup(sw_desc);
     }
     if (serial_desc) {
         if (strlen(serial_desc) >= sizeof ods->serial_num) {
-            VLOG_WARN("%s: truncating serial_desc, must be less than %zu "
+#ifdef _WIN32
+            VLOG_WARN("%s: truncating serial_desc, must be less than %lu "
                       "bytes", p->name, sizeof ods->serial_num);
+#else
+            VLOG_WARN("%s: truncating serial_desc, must be less than %zu "
+                "bytes", p->name, sizeof ods->serial_num);
+#endif
         }
         free(p->serial_desc);
         p->serial_desc = xstrdup(serial_desc);
     }
     if (dp_desc) {
         if (strlen(dp_desc) >= sizeof ods->dp_desc) {
-            VLOG_WARN("%s: truncating dp_desc, must be less than %zu bytes",
+#ifdef _WIN32
+            VLOG_WARN("%s: truncating dp_desc, must be less than %lu bytes",
                       p->name, sizeof ods->dp_desc);
+#else
+            VLOG_WARN("%s: truncating dp_desc, must be less than %zu bytes",
+                p->name, sizeof ods->dp_desc);
+#endif
         }
         free(p->dp_desc);
         p->dp_desc = xstrdup(dp_desc);
@@ -2252,7 +2277,11 @@ handle_table_stats_request(struct ofconn *ofconn,
     ots = xcalloc(p->n_tables, sizeof *ots);
     for (i = 0; i < p->n_tables; i++) {
         ots[i].table_id = i;
+#ifdef _WIN32
+        sprintf(ots[i].name, "table%lu", i);
+#else
         sprintf(ots[i].name, "table%zu", i);
+#endif
         ots[i].match = htonll(OFPXMT12_MASK);
         ots[i].wildcards = htonll(OFPXMT12_MASK);
         ots[i].write_actions = htonl(OFPAT11_OUTPUT);
@@ -2770,14 +2799,19 @@ struct queue_stats_cbdata {
 
 static void
 put_queue_stats(struct queue_stats_cbdata *cbdata, uint32_t queue_id,
-                const struct netdev_queue_stats *stats)
+const struct netdev_queue_stats *stats)
 {
 
     struct ofputil_queue_stats oqs = {
         .port_no = cbdata->ofport->pp.port_no,
         .queue_id = queue_id,
+#ifndef _WIN32
         .stats = *stats,
     };
+#else
+    };
+    oqs.stats = *stats;
+#endif
     ofputil_append_queue_stat(&cbdata->replies, &oqs);
 }
 

@@ -14,6 +14,9 @@
  */
 
 #include <config.h>
+#if defined(_WIN32)
+#include <sys/resource.h>
+#endif
 
 #include "lockfile.h"
 
@@ -181,6 +184,12 @@ lockfile_unhash(struct lockfile *lockfile)
 {
     if (lockfile->fd >= 0) {
         close(lockfile->fd);
+#ifdef _WIN32
+        if (lockfile->name)
+        {
+            unlink(lockfile->name);
+        }
+#endif
         lockfile->fd = -1;
         hmap_remove(&lock_table, &lockfile->hmap_node);
     }
@@ -193,7 +202,9 @@ lockfile_register(const char *name, dev_t device, ino_t inode, int fd)
 
     lockfile = lockfile_find(device, inode);
     if (lockfile) {
+#ifndef _WIN32
         VLOG_ERR("%s: lock file disappeared and reappeared!", name);
+#endif
         lockfile_unhash(lockfile);
     }
 

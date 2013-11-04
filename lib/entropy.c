@@ -27,14 +27,19 @@
 VLOG_DEFINE_THIS_MODULE(entropy);
 
 static const char urandom[] = "/dev/urandom";
+#ifdef _WIN32
+#include <Wincrypt.h>
+#endif
 
 /* Initializes 'buffer' with 'n' bytes of high-quality random numbers.  Returns
  * 0 if successful, otherwise a positive errno value or EOF on error. */
 int
 get_entropy(void *buffer, size_t n)
 {
-    size_t bytes_read;
     int error;
+
+#ifndef _WIN32
+    size_t bytes_read;
     int fd;
 
     fd = open(urandom, O_RDONLY);
@@ -49,6 +54,22 @@ get_entropy(void *buffer, size_t n)
     if (error) {
         VLOG_ERR("%s: read error (%s)", urandom, ovs_retval_to_string(error));
     }
+#else
+    error = 1;
+    HCRYPTPROV   hCryptProv = 0;
+    CryptAcquireContext(&hCryptProv, NULL, NULL, PROV_RSA_FULL, 0);
+        
+    if (CryptGenRandom(hCryptProv, n, buffer))
+        {
+            error = 0;
+        }
+
+    if (error) 
+        {
+        VLOG_ERR("RtlGenRandom: read error (%s)", urandom, ovs_retval_to_string(error));
+        }
+#endif
+
     return error;
 }
 

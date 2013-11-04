@@ -2041,8 +2041,13 @@ bridge_run_fast(void)
 void
 bridge_run(void)
 {
+#ifdef _WIN32
+    static struct ovsrec_open_vswitch null_cfg;
+    const struct ovsrec_open_vswitch *cfg;
+#else
     static const struct ovsrec_open_vswitch null_cfg;
     const struct ovsrec_open_vswitch *cfg;
+#endif
     struct ovsdb_idl_txn *reconf_txn = NULL;
 
     bool vlan_splinters_changed;

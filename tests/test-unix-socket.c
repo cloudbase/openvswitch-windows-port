@@ -29,6 +29,22 @@ main(int argc, char *argv[])
     const char *sockname1;
     const char *sockname2;
     int sock1, sock2;
+#ifdef _WIN32
+    WORD wVersionRequested;
+    WSADATA wsaData;
+    int err;
+
+    /* Use the MAKEWORD(lowbyte, highbyte) macro declared in Windef.h */
+    wVersionRequested = MAKEWORD(2, 2);
+
+    err = WSAStartup(wVersionRequested, &wsaData);
+    if (err != 0) {
+        /* Tell the user that we could not find a usable */
+        /* Winsock DLL.                                  */
+        printf("WSAStartup failed with error: %d\n", err);
+        return 1;
+    }
+#endif
 
     set_program_name(argv[0]);
 
@@ -38,8 +54,10 @@ main(int argc, char *argv[])
     sockname1 = argv[1];
     sockname2 = argc > 2 ? argv[2] : sockname1;
 
+#ifndef _WIN32
     signal(SIGALRM, SIG_DFL);
     alarm(5);
+#endif
 
     /* Create a listening socket under name 'sockname1'. */
     sock1 = make_unix_socket(SOCK_STREAM, false, sockname1, NULL);
@@ -52,10 +70,12 @@ main(int argc, char *argv[])
 
     /* Connect to 'sockname2' (which should be the same file, perhaps under a
      * different name). */
+#ifndef _WIN32
     sock2 = make_unix_socket(SOCK_STREAM, false, NULL, sockname2);
     if (sock2 < 0) {
         ovs_fatal(-sock2, "%s: connect failed", sockname2);
     }
+#endif
 
     close(sock1);
     close(sock2);

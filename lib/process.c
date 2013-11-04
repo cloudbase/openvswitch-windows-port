@@ -82,7 +82,9 @@ process_init(void)
     inited = true;
 
     /* Create notification pipe. */
+#ifndef _WIN32
     xpipe_nonblocking(fds);
+#endif
 
     /* Set up child termination signal handler. */
     memset(&sa, 0, sizeof sa);
@@ -444,8 +446,13 @@ stream_read(struct stream *s)
                 break;
             }
         } else if (s->log.length > s->max_size) {
-            VLOG_WARN("subprocess output overflowed %zu-byte buffer",
+#ifdef _WIN32
+            VLOG_WARN("subprocess output overflowed %lu-byte buffer",
                       s->max_size);
+#else
+            VLOG_WARN("subprocess output overflowed %zu-byte buffer",
+                s->max_size);
+#endif
             break;
         }
     }

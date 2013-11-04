@@ -437,6 +437,14 @@ static const struct command commands[] = {
 int
 main(int argc, char *argv[])
 {
+#ifdef _WIN32
+    WSADATA wsaData;
+    if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0)
+    {
+        printf("WSAStartup() failed miserably! With error code %ld\n", WSAGetLastError());
+        return 1;
+    }
+#endif
     set_program_name(argv[0]);
     vlog_set_levels(NULL, VLF_ANY_FACILITY, VLL_EMER);
     vlog_set_levels(NULL, VLF_CONSOLE, VLL_DBG);

@@ -17,6 +17,7 @@
 #ifndef VLOG_H
 #define VLOG_H 1
 
+#include <config.h>
 #include <limits.h>
 #include <stdarg.h>
 #include <stdbool.h>
@@ -29,7 +30,7 @@
 #ifdef  __cplusplus
 extern "C" {
 #endif
-
+    
 /* Logging severity levels.
  *
  * ovs-appctl(8) defines each of the log levels. */
@@ -75,11 +76,13 @@ struct vlog_module {
 
 /* Creates and initializes a global instance of a module named MODULE. */
 #if USE_LINKER_SECTIONS
+#if !defined(_WIN32)
 #define VLOG_DEFINE_MODULE(MODULE)                                      \
         VLOG_DEFINE_MODULE__(MODULE)                                    \
         extern struct vlog_module *vlog_module_ptr_##MODULE;            \
         struct vlog_module *vlog_module_ptr_##MODULE                    \
             __attribute__((section("vlog_modules"))) = &VLM_##MODULE
+#endif
 #else
 #define VLOG_DEFINE_MODULE(MODULE) extern struct vlog_module VLM_##MODULE
 #endif
@@ -242,7 +245,7 @@ void vlog_usage(void);
         struct vlog_module VLM_##MODULE =                               \
         {                                                               \
             #MODULE,                                      /* name */    \
-            { [ 0 ... VLF_N_FACILITIES - 1] = VLL_INFO }, /* levels */  \
+            { [ VLF_N_FACILITIES - 1] = VLL_INFO }, /* levels */  \
             VLL_INFO,                                     /* min_level */ \
         };
 

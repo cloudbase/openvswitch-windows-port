@@ -34,12 +34,20 @@
 #include "dpif.h"
 #include "dummy.h"
 #include "leak-checker.h"
+#ifdef _WIN32
+#include "lib/memory.h"
+#else
 #include "memory.h"
+#endif
 #include "netdev.h"
 #include "openflow/openflow.h"
 #include "ovsdb-idl.h"
 #include "poll-loop.h"
+#ifdef _WIN32
+#include "lib/process.h"
+#else
 #include "process.h"
+#endif
 #include "signals.h"
 #include "simap.h"
 #include "stream-ssl.h"
@@ -54,6 +62,10 @@
 #include "lib/vswitch-idl.h"
 #include "worker.h"
 
+#ifdef _WIN32
+#define HAVE_MLOCKALL 0
+#undef HAVE_MLOCKALL
+#endif
 VLOG_DEFINE_THIS_MODULE(vswitchd);
 
 /* --mlockall: If set, locks all process memory into physical RAM, preventing
@@ -68,6 +80,22 @@ static void usage(void) NO_RETURN;
 int
 main(int argc, char *argv[])
 {
+#ifdef _WIN32
+    WORD wVersionRequested;
+    WSADATA wsaData;
+    int err;
+
+    /* Use the MAKEWORD(lowbyte, highbyte) macro declared in Windef.h */
+    wVersionRequested = MAKEWORD(2, 2);
+
+    err = WSAStartup(wVersionRequested, &wsaData);
+    if (err != 0) {
+        /* Tell the user that we could not find a usable */
+        /* Winsock DLL.                                  */
+        printf("WSAStartup failed with error: %d\n", err);
+        return 1;
+    }
+#endif
     char *unixctl_path = NULL;
     struct unixctl_server *unixctl;
     struct signal *sighup;
@@ -96,7 +124,9 @@ main(int argc, char *argv[])
 #endif
     }
 
+#ifndef _WIN32
     worker_start();
+#endif
 
     retval = unixctl_server_create(unixctl_path, &unixctl);
     if (retval) {
@@ -105,14 +135,18 @@ main(int argc, char *argv[])
     unixctl_command_register("exit", "", 0, 0, ovs_vswitchd_exit, &exiting);
 
     bridge_init(remote);
+#ifndef _WIN32
     free(remote);
+#endif
 
     exiting = false;
     while (!exiting) {
         worker_run();
+#ifndef _WIN32
         if (signal_poll(sighup)) {
             vlog_reopen_log_file();
         }
+#endif
         memory_run();
         if (memory_should_report()) {
             struct simap usage;
@@ -236,7 +270,11 @@ parse_options(int argc, char *argv[], char **unixctl_pathp)
 
     switch (argc) {
     case 0:
+#ifndef _WIN32
         return xasprintf("unix:%s/db.sock", ovs_rundir());
+#else
+        return xasprintf("tcp:127.0.0.1:5559", ovs_rundir());
+#endif
 
     case 1:
         return xstrdup(argv[0]);

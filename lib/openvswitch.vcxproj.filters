@@ -1,0 +1,322 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\generated\dhparams.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\generated\dirs.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="aes128.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="autopath.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="backtrace.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="bitmap.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="bond.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="bundle.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="byteq.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cfm.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="classifier.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command-line.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="coverage.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="csum.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="daemon.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dpif-linux.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dpif-netdev.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dpif.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dummy.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dynamic-string.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="entropy.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="fatal-signal.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="flow.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hash.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="heap.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hmap.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hmapx.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="json.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="jsonrpc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lacp.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="leak-checker.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="learn.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="learning-switch.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="list.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lockfile.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mac-learning.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="match.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="memory.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="meta-flow.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="multipath.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="netdev-dummy.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="netdev-linux.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="netdev-vport.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="netdev.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="netlink-notifier.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="netlink-socket.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="netlink.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="nx-match.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="odp-util.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ofp-actions.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ofp-errors.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ofp-msgs.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ofp-parse.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ofp-print.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ofp-util.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ofpbuf.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ovsdb-data.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ovsdb-error.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ovsdb-idl.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ovsdb-parser.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ovsdb-types.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="packets.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pcap.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="poll-loop.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="process.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="random.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rconn.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="reconnect.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="route-table.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rtnetlink-link.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sha1.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="shash.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="signals.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="simap.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="smap.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="socket-util.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sort.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sset.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stp.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stream-fd.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stream-ssl.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stream-tcp.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stream-unix.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stream.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stress.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="string.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="svec.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="table.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tag.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="timer.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="timeval.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="token-bucket.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="unicode.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="unixctl.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="util.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="uuid.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vconn-stream.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vconn.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vlan-bitmap.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vlandev.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vlog.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vswitch-idl.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="worker.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{929E2CAD-8A8B-4183-8E0B-927A501DD6BF}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

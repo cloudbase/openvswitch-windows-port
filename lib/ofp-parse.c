@@ -15,6 +15,9 @@
  */
 
 #include <config.h>
+#ifdef _WIN32
+#include <unistd.h>
+#endif
 
 #include "ofp-parse.h"
 

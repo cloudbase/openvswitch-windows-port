@@ -1082,6 +1082,11 @@ size_t
 json_parser_feed(struct json_parser *p, const char *input, size_t n)
 {
     size_t i;
+#ifdef _WIN32
+    i = 0;
+    if (!input)
+        return 0;
+#endif
     for (i = 0; !p->done && i < n; ) {
         if (json_lex_input(p, input[i])) {
             p->byte_number++;

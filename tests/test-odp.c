@@ -66,18 +66,23 @@ parse_keys(void)
             printf("odp_flow_key_to_flow: error\n");
             goto next;
         }
-
+        
         /* Convert cls_rule back to odp_key. */
         ofpbuf_uninit(&odp_key);
         ofpbuf_init(&odp_key, 0);
         odp_flow_key_from_flow(&odp_key, &flow);
 
         if (odp_key.size > ODPUTIL_FLOW_KEY_BYTES) {
-            printf ("too long: %zu > %d\n",
+#ifdef _WIN32
+            printf ("too long: %lu > %d\n",
                     odp_key.size, ODPUTIL_FLOW_KEY_BYTES);
+#else
+            printf("too long: %zu > %d\n",
+                odp_key.size, ODPUTIL_FLOW_KEY_BYTES);
+#endif
             exit_code = 1;
         }
-
+        
         /* Convert odp_key to string. */
         ds_init(&out);
         odp_flow_key_format(odp_key.data, odp_key.size, &out);
@@ -129,6 +134,15 @@ parse_actions(void)
 int
 main(int argc, char *argv[])
 {
+#ifdef _WIN32
+    WSADATA wsaData;
+    if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0)
+    {
+        printf("WSAStartup() failed miserably! With error code %ld\n", WSAGetLastError());
+        return 1;
+    }
+#endif
+
     if (argc == 2 &&!strcmp(argv[1], "parse-keys")) {
         return parse_keys();
     } else if (argc == 2 && !strcmp(argv[1], "parse-actions")) {

@@ -1076,7 +1076,11 @@ dpif_linux_recv_set(struct dpif *dpif_, bool enable)
         struct dpif_channel *ch;
         int error;
 
+#ifndef _WIN32
         dpif->epoll_fd = epoll_create(N_CHANNELS);
+#else
+        dpif->epoll_fd = (SOCKET)CreateIoCompletionPort(INVALID_HANDLE_VALUE, 0, 0, 0);
+#endif
         if (dpif->epoll_fd < 0) {
             return errno;
         }
@@ -1094,8 +1098,13 @@ dpif_linux_recv_set(struct dpif *dpif_, bool enable)
             memset(&event, 0, sizeof event);
             event.events = EPOLLIN;
             event.data.u32 = indx;
+#ifndef _WIN32
             if (epoll_ctl(dpif->epoll_fd, EPOLL_CTL_ADD, nl_sock_fd(ch->sock),
-                          &event) < 0) {
+                &event) < 0) {
+#else
+            if(!CreateIoCompletionPort((HANDLE)nl_sock_fd(ch->sock), 
+                (HANDLE)dpif->epoll_fd, 0, 0)) {
+#endif
                 error = errno;
                 destroy_channels(dpif);
                 return error;
@@ -1200,7 +1209,14 @@ dpif_linux_recv(struct dpif *dpif_, struct dpif_upcall *upcall,
         int i;
 
         do {
+#ifndef _WIN32
             retval = epoll_wait(dpif->epoll_fd, events, N_CHANNELS, 0);
+#else
+            OVERLAPPED *overlapped;
+            ULONG_PTR completionkey;
+            DWORD transferred;
+            retval = GetQueuedCompletionStatus((HANDLE)dpif->epoll_fd, &transferred, &completionkey, &overlapped, 0);
+#endif
         } while (retval < 0 && errno == EINTR);
         if (retval < 0) {
             static struct vlog_rate_limit rl = VLOG_RATE_LIMIT_INIT(1, 1);

@@ -1639,15 +1639,25 @@ ofputil_decode_flow_stats_reply(struct ofputil_flow_stats *fs,
 
         ofs = ofpbuf_try_pull(msg, sizeof *ofs);
         if (!ofs) {
-            VLOG_WARN_RL(&bad_ofmsg_rl, "OFPST_FLOW reply has %zu leftover "
+#ifdef _WIN32
+            VLOG_WARN_RL(&bad_ofmsg_rl, "OFPST_FLOW reply has %lu leftover "
                          "bytes at end", msg->size);
+#else
+            VLOG_WARN_RL(&bad_ofmsg_rl, "OFPST_FLOW reply has %zu leftover "
+                "bytes at end", msg->size);
+#endif
             return EINVAL;
         }
 
         length = ntohs(ofs->length);
         if (length < sizeof *ofs) {
+#ifdef _WIN32
             VLOG_WARN_RL(&bad_ofmsg_rl, "OFPST_FLOW reply claims invalid "
-                         "length %zu", length);
+                         "length %lu", length);
+#else
+            VLOG_WARN_RL(&bad_ofmsg_rl, "OFPST_FLOW reply claims invalid "
+                "length %zu", length);
+#endif
             return EINVAL;
         }
 
@@ -1679,15 +1689,25 @@ ofputil_decode_flow_stats_reply(struct ofputil_flow_stats *fs,
 
         ofs = ofpbuf_try_pull(msg, sizeof *ofs);
         if (!ofs) {
-            VLOG_WARN_RL(&bad_ofmsg_rl, "OFPST_FLOW reply has %zu leftover "
+#ifdef _WIN32
+            VLOG_WARN_RL(&bad_ofmsg_rl, "OFPST_FLOW reply has %lu leftover "
                          "bytes at end", msg->size);
+#else
+            VLOG_WARN_RL(&bad_ofmsg_rl, "OFPST_FLOW reply has %zu leftover "
+                "bytes at end", msg->size);
+#endif
             return EINVAL;
         }
 
         length = ntohs(ofs->length);
         if (length < sizeof *ofs) {
+#ifdef _WIN32
             VLOG_WARN_RL(&bad_ofmsg_rl, "OFPST_FLOW reply claims invalid "
-                         "length %zu", length);
+                         "length %lu", length);
+#else
+            VLOG_WARN_RL(&bad_ofmsg_rl, "OFPST_FLOW reply claims invalid "
+                "length %zu", length);
+#endif
             return EINVAL;
         }
 
@@ -1713,16 +1733,26 @@ ofputil_decode_flow_stats_reply(struct ofputil_flow_stats *fs,
 
         nfs = ofpbuf_try_pull(msg, sizeof *nfs);
         if (!nfs) {
-            VLOG_WARN_RL(&bad_ofmsg_rl, "NXST_FLOW reply has %zu leftover "
+#ifdef _WIN32
+            VLOG_WARN_RL(&bad_ofmsg_rl, "NXST_FLOW reply has %lu leftover "
                          "bytes at end", msg->size);
+#else
+            VLOG_WARN_RL(&bad_ofmsg_rl, "NXST_FLOW reply has %zu leftover "
+                "bytes at end", msg->size);
+#endif
             return EINVAL;
         }
 
         length = ntohs(nfs->length);
         match_len = ntohs(nfs->match_len);
         if (length < sizeof *nfs + ROUND_UP(match_len, 8)) {
+#ifdef _WIN32
+            VLOG_WARN_RL(&bad_ofmsg_rl, "NXST_FLOW reply with match_len=%lu "
+                         "claims invalid length %lu", match_len, length);
+#else
             VLOG_WARN_RL(&bad_ofmsg_rl, "NXST_FLOW reply with match_len=%zu "
-                         "claims invalid length %zu", match_len, length);
+                "claims invalid length %zu", match_len, length);
+#endif
             return EINVAL;
         }
         if (nx_pull_match(msg, match_len, &fs->match, NULL, NULL)) {
@@ -3126,8 +3156,13 @@ ofputil_decode_flow_monitor_request(struct ofputil_flow_monitor_request *rq,
 
     nfmr = ofpbuf_try_pull(msg, sizeof *nfmr);
     if (!nfmr) {
-        VLOG_WARN_RL(&bad_ofmsg_rl, "NXST_FLOW_MONITOR request has %zu "
+#ifdef _WIN32
+        VLOG_WARN_RL(&bad_ofmsg_rl, "NXST_FLOW_MONITOR request has %lu "
                      "leftover bytes at end", msg->size);
+#else
+        VLOG_WARN_RL(&bad_ofmsg_rl, "NXST_FLOW_MONITOR request has %zu "
+            "leftover bytes at end", msg->size);
+#endif
         return OFPERR_OFPBRC_BAD_LEN;
     }
 
@@ -3276,8 +3311,13 @@ ofputil_decode_flow_update(struct ofputil_flow_update *update,
     }
 
 bad_len:
-    VLOG_WARN_RL(&bad_ofmsg_rl, "NXST_FLOW_MONITOR reply has %zu "
+#ifdef _WIN32
+    VLOG_WARN_RL(&bad_ofmsg_rl, "NXST_FLOW_MONITOR reply has %lu "
                  "leftover bytes at end", msg->size);
+#else
+    VLOG_WARN_RL(&bad_ofmsg_rl, "NXST_FLOW_MONITOR reply has %zu "
+        "leftover bytes at end", msg->size);
+#endif
     return OFPERR_OFPBRC_BAD_LEN;
 }
 
@@ -4162,8 +4202,13 @@ ofputil_decode_port_stats(struct ofputil_port_stats *ps, struct ofpbuf *msg)
 
         ps11 = ofpbuf_try_pull(msg, sizeof *ps11);
         if (!ps11) {
-            VLOG_WARN_RL(&bad_ofmsg_rl, "OFPST_PORT reply has %zu leftover "
+#ifdef _WIN32
+            VLOG_WARN_RL(&bad_ofmsg_rl, "OFPST_PORT reply has %lu leftover "
                          "bytes at end", msg->size);
+#else
+            VLOG_WARN_RL(&bad_ofmsg_rl, "OFPST_PORT reply has %zu leftover "
+                "bytes at end", msg->size);
+#endif
             return OFPERR_OFPBRC_BAD_LEN;
         }
         return ofputil_port_stats_from_ofp11(ps, ps11);
@@ -4172,8 +4217,13 @@ ofputil_decode_port_stats(struct ofputil_port_stats *ps, struct ofpbuf *msg)
 
         ps10 = ofpbuf_try_pull(msg, sizeof *ps10);
         if (!ps10) {
-            VLOG_WARN_RL(&bad_ofmsg_rl, "OFPST_PORT reply has %zu leftover "
+#ifdef _WIN32
+            VLOG_WARN_RL(&bad_ofmsg_rl, "OFPST_PORT reply has %lu leftover "
                          "bytes at end", msg->size);
+#else
+            VLOG_WARN_RL(&bad_ofmsg_rl, "OFPST_PORT reply has %zu leftover "
+                "bytes at end", msg->size);
+#endif
             return OFPERR_OFPBRC_BAD_LEN;
         }
         return ofputil_port_stats_from_ofp10(ps, ps10);
@@ -4345,8 +4395,13 @@ ofputil_decode_queue_stats(struct ofputil_queue_stats *qs, struct ofpbuf *msg)
 
         qs11 = ofpbuf_try_pull(msg, sizeof *qs11);
         if (!qs11) {
-            VLOG_WARN_RL(&bad_ofmsg_rl, "OFPST_QUEUE reply has %zu leftover "
+#ifdef _WIN32
+            VLOG_WARN_RL(&bad_ofmsg_rl, "OFPST_QUEUE reply has %lu leftover "
                          "bytes at end", msg->size);
+#else
+            VLOG_WARN_RL(&bad_ofmsg_rl, "OFPST_QUEUE reply has %zu leftover "
+                "bytes at end", msg->size);
+#endif
             return OFPERR_OFPBRC_BAD_LEN;
         }
         return ofputil_queue_stats_from_ofp11(qs, qs11);
@@ -4355,8 +4410,13 @@ ofputil_decode_queue_stats(struct ofputil_queue_stats *qs, struct ofpbuf *msg)
 
         qs10 = ofpbuf_try_pull(msg, sizeof *qs10);
         if (!qs10) {
-            VLOG_WARN_RL(&bad_ofmsg_rl, "OFPST_QUEUE reply has %zu leftover "
+#ifdef _WIN32
+            VLOG_WARN_RL(&bad_ofmsg_rl, "OFPST_QUEUE reply has %lu leftover "
                          "bytes at end", msg->size);
+#else
+            VLOG_WARN_RL(&bad_ofmsg_rl, "OFPST_QUEUE reply has %zu leftover "
+                "bytes at end", msg->size);
+#endif
             return OFPERR_OFPBRC_BAD_LEN;
         }
         return ofputil_queue_stats_from_ofp10(qs, qs10);

@@ -1,0 +1,35 @@
+﻿Build started 04.11.2013 4:37:24.
+     1>Project "f:\_1\windows\win_api.vcxproj" on node 2 (Build target(s)).
+     1>CustomBuild:
+         Building Custom Rule F:/_1/windows/CMakeLists.txt
+         CMake does not need to re-run because F:\_1\windows\CMakeFiles\generate.stamp is up-to-date.
+       ClCompile:
+         E:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"E:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/INCLUDE" /I"E:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/ATLMFC/INCLUDE" /I"C:/Program Files (x86)/Windows Kits/8.1/include/shared" /I"C:/Program Files (x86)/Windows Kits/8.1/include/um" /I"C:/Program Files (x86)/Windows Kits/8.1/include/winrt" /IF:/_1/windows /IF:/_1/windows/thirdparty /IF:/_1 /IF:/_1/include /IF:/_1/lib /IF:/_1/ofproto /IF:/_1/ovsdb /IF:/_1/utilities /IF:/_1/tests /Zi /nologo /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"win_api.dir\Debug\\" /Fd"F:/_1/windows/Debug/win_api.pdb" /Gd /TC /analyze- /errorReport:prompt getopt.c unistd.c resource.c poll.c wait.c time.c uio.c
+         getopt.c
+         Exporting getopt library
+         unistd.c
+         Exporting getopt library
+         resource.c
+         Exporting getopt library
+         poll.c
+         wait.c
+         Exporting getopt library
+         time.c
+         Exporting getopt library
+         uio.c
+         Exporting getopt library
+         Generating Code...
+       Lib:
+         E:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"F:\_1\windows\Debug\win_api.lib" /NOLOGO win_api.dir\Debug\getopt.obj
+         win_api.dir\Debug\unistd.obj
+         win_api.dir\Debug\resource.obj
+         win_api.dir\Debug\poll.obj
+         win_api.dir\Debug\wait.obj
+         win_api.dir\Debug\time.obj
+         win_api.dir\Debug\uio.obj
+         win_api.vcxproj -> F:\_1\windows\Debug\win_api.lib
+     1>Done Building Project "f:\_1\windows\win_api.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:06.50

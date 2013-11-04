@@ -1,0 +1,361 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|Win32">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|Win32">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGUID>{E77DBEAB-0D1D-4CE0-A23E-80F200E97A2C}</ProjectGUID>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>Win32</Platform>
+    <ProjectName>ALL_BUILD</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+    <PropertyGroup>
+      <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>E:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/INCLUDE;E:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/ATLMFC/INCLUDE;C:/Program Files (x86)/Windows Kits/8.1/include/shared;C:/Program Files (x86)/Windows Kits/8.1/include/um;C:/Program Files (x86)/Windows Kits/8.1/include/winrt;F:/_1/windows;F:/_1/windows/thirdparty;F:/_1;F:/_1/include;F:/_1/lib;F:/_1/ofproto;F:/_1/ovsdb;F:/_1/utilities;F:/_1/tests;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>E:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/INCLUDE;E:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/ATLMFC/INCLUDE;C:/Program Files (x86)/Windows Kits/8.1/include/shared;C:/Program Files (x86)/Windows Kits/8.1/include/um;C:/Program Files (x86)/Windows Kits/8.1/include/winrt;F:/_1/windows;F:/_1/windows/thirdparty;F:/_1;F:/_1/include;F:/_1/lib;F:/_1/ofproto;F:/_1/ovsdb;F:/_1/utilities;F:/_1/tests;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>E:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/INCLUDE;E:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/ATLMFC/INCLUDE;C:/Program Files (x86)/Windows Kits/8.1/include/shared;C:/Program Files (x86)/Windows Kits/8.1/include/um;C:/Program Files (x86)/Windows Kits/8.1/include/winrt;F:/_1/windows;F:/_1/windows/thirdparty;F:/_1;F:/_1/include;F:/_1/lib;F:/_1/ofproto;F:/_1/ovsdb;F:/_1/utilities;F:/_1/tests;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>E:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/INCLUDE;E:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/ATLMFC/INCLUDE;C:/Program Files (x86)/Windows Kits/8.1/include/shared;C:/Program Files (x86)/Windows Kits/8.1/include/um;C:/Program Files (x86)/Windows Kits/8.1/include/winrt;F:/_1/windows;F:/_1/windows/thirdparty;F:/_1;F:/_1/include;F:/_1/lib;F:/_1/ofproto;F:/_1/ovsdb;F:/_1/utilities;F:/_1/tests;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule F:/_1/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+"C:\Program Files (x86)\CMake 2.8\bin\cmake.exe" -HF:/_1 -BF:/_1 --check-stamp-file F:\_1\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">F:/_1/CMakeLists.txt;F:\_1\CMakeLists.txt;F:\_1\CMakeFiles\2.8.11.2\CMakeSystem.cmake;F:\_1\CMakeFiles\2.8.11.2\CMakeCCompiler.cmake;F:\_1\CMakeFiles\2.8.11.2\CMakeCXXCompiler.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeGenericSystem.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\WindowsPaths.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-MSVC.cmake;F:\_1\CMakeFiles\2.8.11.2\CMakeRCCompiler.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeRCInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCXXInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-MSVC.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake;F:\_1\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">F:\_1\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule F:/_1/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+"C:\Program Files (x86)\CMake 2.8\bin\cmake.exe" -HF:/_1 -BF:/_1 --check-stamp-file F:\_1\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">F:/_1/CMakeLists.txt;F:\_1\CMakeLists.txt;F:\_1\CMakeFiles\2.8.11.2\CMakeSystem.cmake;F:\_1\CMakeFiles\2.8.11.2\CMakeCCompiler.cmake;F:\_1\CMakeFiles\2.8.11.2\CMakeCXXCompiler.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeGenericSystem.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\WindowsPaths.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-MSVC.cmake;F:\_1\CMakeFiles\2.8.11.2\CMakeRCCompiler.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeRCInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCXXInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-MSVC.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake;F:\_1\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">F:\_1\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Building Custom Rule F:/_1/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
+"C:\Program Files (x86)\CMake 2.8\bin\cmake.exe" -HF:/_1 -BF:/_1 --check-stamp-file F:\_1\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">F:/_1/CMakeLists.txt;F:\_1\CMakeLists.txt;F:\_1\CMakeFiles\2.8.11.2\CMakeSystem.cmake;F:\_1\CMakeFiles\2.8.11.2\CMakeCCompiler.cmake;F:\_1\CMakeFiles\2.8.11.2\CMakeCXXCompiler.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeGenericSystem.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\WindowsPaths.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-MSVC.cmake;F:\_1\CMakeFiles\2.8.11.2\CMakeRCCompiler.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeRCInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCXXInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-MSVC.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake;F:\_1\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">F:\_1\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Building Custom Rule F:/_1/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
+"C:\Program Files (x86)\CMake 2.8\bin\cmake.exe" -HF:/_1 -BF:/_1 --check-stamp-file F:\_1\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">F:/_1/CMakeLists.txt;F:\_1\CMakeLists.txt;F:\_1\CMakeFiles\2.8.11.2\CMakeSystem.cmake;F:\_1\CMakeFiles\2.8.11.2\CMakeCCompiler.cmake;F:\_1\CMakeFiles\2.8.11.2\CMakeCXXCompiler.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeGenericSystem.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\WindowsPaths.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-MSVC.cmake;F:\_1\CMakeFiles\2.8.11.2\CMakeRCCompiler.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeRCInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCXXInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-MSVC.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake;F:\_1\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">F:\_1\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="CMakeFiles\7ecbb8aa209a699547664e5f9fcf9a80\ALL_BUILD.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Build all projects</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">F:/_1/CMakeFiles/7ecbb8aa209a699547664e5f9fcf9a80/ALL_BUILD.rule;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">F:\_1\CMakeFiles\ALL_BUILD</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Build all projects</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">F:/_1/CMakeFiles/7ecbb8aa209a699547664e5f9fcf9a80/ALL_BUILD.rule;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">F:\_1\CMakeFiles\ALL_BUILD</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Build all projects</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">F:/_1/CMakeFiles/7ecbb8aa209a699547664e5f9fcf9a80/ALL_BUILD.rule;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">F:\_1\CMakeFiles\ALL_BUILD</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Build all projects</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">F:/_1/CMakeFiles/7ecbb8aa209a699547664e5f9fcf9a80/ALL_BUILD.rule;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">F:\_1\CMakeFiles\ALL_BUILD</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CMakeFiles\ALL_BUILD" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="F:/_1/ZERO_CHECK.vcxproj">
+      <Project>49CD280D-50F8-49C4-BD41-E8608AFB0A91</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/utilities/nlmon.vcxproj">
+      <Project>98D6557C-5189-4AC7-B27F-8D84B878D134</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/ofproto/ofproto.vcxproj">
+      <Project>E0E7830B-776A-4062-836E-410CA2295C16</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/lib/openvswitch.vcxproj">
+      <Project>DFB0CEB7-256A-4136-BCCA-D228F681C5A7</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/utilities/ovs-appctl.vcxproj">
+      <Project>CD0FB8A7-45CC-4303-8D1C-0198B6714F67</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/utilities/ovs-benchmark.vcxproj">
+      <Project>F5699D53-6162-40EB-AF10-430816E94E84</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/utilities/ovs-controller.vcxproj">
+      <Project>DE276111-E9A4-459F-A634-74DB70542343</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/utilities/ovs-dpctl.vcxproj">
+      <Project>8D4BFBAA-88FD-4A68-B190-BCEAB34334F4</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/utilities/ovs-ofctl.vcxproj">
+      <Project>B1CECCFD-B38E-4148-AE2D-39B6A9AEFA29</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/utilities/ovs-openflowd.vcxproj">
+      <Project>07346F89-FAE3-42D5-BE17-EBEA40E83FCD</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/utilities/ovs-vlan-bug-workaround.vcxproj">
+      <Project>F4CA26DE-17AE-411B-820B-31F6550CBF5A</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/utilities/ovs-vsctl.vcxproj">
+      <Project>9EC3EA8A-2F96-4837-80F8-98254A80232E</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/vswitchd/ovs-vswitchd.vcxproj">
+      <Project>66428CCD-865F-4619-9970-FB9DC49BC951</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/ovsdb/ovsdb.vcxproj">
+      <Project>8A6D11D5-459C-4D25-9B36-1D83283A0A40</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/ovsdb/ovsdb-client.vcxproj">
+      <Project>BBCDC331-04B9-47EA-A903-DD756F7F6211</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/ovsdb/ovsdb-server.vcxproj">
+      <Project>E0789291-C6D8-4D2E-936F-3F4076E1ECC4</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/ovsdb/ovsdb-tool.vcxproj">
+      <Project>A36D66B5-86AB-4553-B27C-4D7593D7B7B4</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/lib/sflow.vcxproj">
+      <Project>C533030E-8D5C-469A-8345-83B306D6DD20</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/tests/test-aes128.vcxproj">
+      <Project>3BDAEBA6-1795-4FF2-B493-4E8E7489254C</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/tests/test-bundle.vcxproj">
+      <Project>C359CD4B-208D-4D7C-AA91-0DBF6171D706</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/tests/test-byte-order.vcxproj">
+      <Project>792FDEF3-321E-460D-9109-25C91649FB4C</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/tests/test-classifier.vcxproj">
+      <Project>08A7B06C-3FA2-45CC-9DEC-AB1B5D3F8256</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/tests/test-csum.vcxproj">
+      <Project>481ED70C-4399-4112-B361-40ED1DBEC5A9</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/tests/test-file_name.vcxproj">
+      <Project>3BD6ADAF-210E-4AFF-9229-B4DF412B1C2D</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/tests/test-flows.vcxproj">
+      <Project>8760F9D7-04C1-4424-9D47-3309F2C1C92E</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/tests/test-hash.vcxproj">
+      <Project>F5D44709-D28A-4C2B-B113-921592C0F19C</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/tests/test-heap.vcxproj">
+      <Project>C50F7E8D-EE57-4C61-8567-12E27CEB777B</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/tests/test-hmap.vcxproj">
+      <Project>979929CF-9B9C-4ED4-8BDB-1C2010C1CBCA</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/tests/test-json.vcxproj">
+      <Project>3DB445E9-8A54-44A8-9F62-C8B494AE4C72</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/tests/test-jsonrpc.vcxproj">
+      <Project>3B8BEEB1-76CB-46C9-BC04-153DB43B4ACC</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/tests/test-list.vcxproj">
+      <Project>FA368881-825E-45EC-9C73-11CE92E0809A</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/tests/test-lockfile.vcxproj">
+      <Project>CC35DEF1-D0A3-49C0-A26A-495597A17CB0</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/tests/test-multipath.vcxproj">
+      <Project>C0317787-DD09-4575-B663-FCA69B66AED9</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/tests/test-netflow.vcxproj">
+      <Project>B3B51A0F-3EEA-442F-8817-FAD35BBAAE63</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/tests/test-odp.vcxproj">
+      <Project>987B96CE-61FA-469F-B193-95FD2C51C97B</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/tests/test-ovsdb.vcxproj">
+      <Project>E9C2B970-B6B0-4DFF-9F30-7CAFA078D3F0</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/tests/test-packets.vcxproj">
+      <Project>DC784CF9-E675-4A94-9631-0E1CCB0D66B8</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/tests/test-random.vcxproj">
+      <Project>192CB55C-6FFF-4166-811A-2EF2F3EEEE6D</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/tests/test-reconnect.vcxproj">
+      <Project>5BABDB99-4CF9-405B-BEA6-C85CDB40B637</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/tests/test-sha1.vcxproj">
+      <Project>7C582FEA-8FAC-4261-BAE7-D5A63FE7C62C</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/tests/test-stp.vcxproj">
+      <Project>A58D6850-B804-45D1-B058-07C455B2C308</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/tests/test-strtok_r.vcxproj">
+      <Project>28ADA337-34DD-47F2-94B4-84D7A31310CE</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/tests/test-type-props.vcxproj">
+      <Project>6CF7145A-15C0-40A0-9001-F31D75894421</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/tests/test-unix-socket.vcxproj">
+      <Project>325A6B80-C410-4120-873E-100C83E83CEC</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/tests/test-util.vcxproj">
+      <Project>AA298FBC-5DA1-40E9-BC93-4608783B06CC</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/tests/test-uuid.vcxproj">
+      <Project>9FF22A2A-6A7B-42BB-94B1-2E397F9BBE75</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/tests/test-vconn.vcxproj">
+      <Project>3A85917D-C694-499F-B615-37466A330037</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/_1/windows/win_api.vcxproj">
+      <Project>45E4742E-9B62-4D5A-BC1C-5BDEA6F56F04</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

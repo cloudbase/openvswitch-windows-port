@@ -1,0 +1,20 @@
+Requirements
+------------
+
+1) Microsoft Visual Studio 2013 
+2) CMake: http://www.cmake.org/files/v2.8/cmake-2.8.12-win32-x86.exe
+
+
+Generate the Visual Studio solution files
+-----------------------------------------
+
+cmake -i
+
+Open "OVS_Port.sln" in Visual Studio and build the solution.
+
+
+Notes
+-----
+
+The main reason for requiring Visual Studio 2013 is the improved C99 support:
+http://blogs.msdn.com/b/vcblog/archive/2013/07/19/c99-library-support-in-visual-studio-2013.aspx
